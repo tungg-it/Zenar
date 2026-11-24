@@ -1,5 +1,7 @@
 # Zenar: Git-native API client for Postman collections
 
+**English** · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
+
 [![Version](https://img.shields.io/badge/version-0.1.0-blue)](https://github.com/tungg-it/Zenar/releases/latest)
 [![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)](#download-and-install)
 [![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)](docs/adr/0006-rust-core-typescript-ui.md)
