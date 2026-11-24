@@ -40,7 +40,7 @@
 
 ## 下载与安装
 
-**最新版本：0.1.0** → [github.com/tungg-it/Zenar/releases/latest](https://github.com/tungg-it/Zenar/releases/latest)
+**最新版本：0.1.0** → [updates-zenar.tungit.io.vn](https://updates-zenar.tungit.io.vn/index.html)
 
 | 操作系统 | 下载文件 | 安装方法 |
 | --- | --- | --- |

@@ -40,7 +40,7 @@ Thông tin về đối thủ tóm tắt từ tài liệu công khai của họ v
 
 ## Tải và cài đặt
 
-**Phiên bản mới nhất: 0.1.0** → [github.com/tungg-it/Zenar/releases/latest](https://github.com/tungg-it/Zenar/releases/latest)
+**Phiên bản mới nhất: 0.1.0** → [updates-zenar.tungit.io.vn](https://updates-zenar.tungit.io.vn/index.html)
 
 | Hệ điều hành | File cần tải | Cách cài |
 | --- | --- | --- |

@@ -2,7 +2,7 @@
 
 **English** · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue)](https://github.com/tungg-it/Zenar/releases/latest)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue)](https://updates-zenar.tungit.io.vn/index.html)
 [![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)](#download-and-install)
 ![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
 ![No telemetry](https://img.shields.io/badge/telemetry-none-green)
@@ -45,7 +45,7 @@ Competitor details are summarized from their public documentation and change ove
 
 ## Download and install
 
-**Latest version: 0.1.0** → [github.com/tungg-it/Zenar/releases/latest](https://github.com/tungg-it/Zenar/releases/latest)
+**Latest version: 0.1.0** → [updates-zenar.tungit.io.vn](https://updates-zenar.tungit.io.vn/index.html)
 
 | OS | File to download | How to install |
 | --- | --- | --- |
@@ -91,4 +91,4 @@ Requirements: **Git must be installed** (Zenar uses your system `git` and its cr
 
 ## Tiếng Việt
 
-Zenar là ứng dụng desktop miễn phí để gọi API (thay thế Postman, Bruno), lưu Collection trong một repo Git và tự gộp thay đổi của đồng đội theo từng Field, dành cho cả người không rành Git. Tải bản mới nhất ở [Releases](https://github.com/tungg-it/Zenar/releases/latest).
+Zenar là ứng dụng desktop miễn phí để gọi API (thay thế Postman, Bruno), lưu Collection trong một repo Git và tự gộp thay đổi của đồng đội theo từng Field, dành cho cả người không rành Git. Tải bản mới nhất ở [Releases](https://updates-zenar.tungit.io.vn/index.html).

@@ -40,7 +40,7 @@ REST と GraphQL のリクエストを送信し、GitHub や GitLab（セルフ�
 
 ## ダウンロードとインストール
 
-**最新バージョン：0.1.0** → [github.com/tungg-it/Zenar/releases/latest](https://github.com/tungg-it/Zenar/releases/latest)
+**最新バージョン：0.1.0** → [updates-zenar.tungit.io.vn](https://updates-zenar.tungit.io.vn/index.html)
 
 | OS | ダウンロードするファイル | インストール方法 |
 | --- | --- | --- |
