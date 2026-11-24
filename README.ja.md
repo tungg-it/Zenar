@@ -78,20 +78,8 @@ REST と GraphQL のリクエストを送信し、GitHub や GitLab（セルフ�
 
 **Bruno との違いは？** どちらもコレクションを Git に入れられるファイルとして保存します。Bruno では Git を自分で実行しますが、Zenar は Git を代わりに実行し、競合する編集をフィールド単位でマージします。テスターや PM、サポート担当など Git を使わないメンバーがいるチームに向いています。
 
-**アカウントやサーバーは必要ですか？** いいえ。セルフホストの GitLab を含め、すでに使っている Git ホストで動作し、テレメトリもありません。[ADR 0004](docs/adr/0004-no-server.md) を参照してください。
+**アカウントやサーバーは必要ですか？** いいえ。セルフホストの GitLab を含め、すでに使っている Git ホストで動作し、テレメトリもありません。
 
 **シークレットはどこに保存されますか？** OS のキーチェーンに、あなたのマシン上だけに保存されます。
 
 **オフラインでも使えますか？** はい。コレクションはローカルのクローンなので、オンラインに戻ってから同期できます。
-
-## ソースからビルド
-
-Node 22、pnpm 10、Rust（stable）、および [Tauri 2 の前提条件](https://v2.tauri.app/start/prerequisites/)が必要です。
-
-```sh
-pnpm install
-pnpm tauri dev      # 開発モードで実行
-pnpm tauri build    # お使いの OS 向けインストーラーを生成
-```
-
-設計上の判断は [`docs/adr`](docs/adr)、用語は [`GLOSSARY.md`](GLOSSARY.md)、リリース手順は [`docs/releasing.md`](docs/releasing.md) にあります。

@@ -4,8 +4,8 @@
 
 [![Version](https://img.shields.io/badge/version-0.1.0-blue)](https://github.com/tungg-it/Zenar/releases/latest)
 [![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)](#download-and-install)
-[![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)](docs/adr/0006-rust-core-typescript-ui.md)
-[![No telemetry](https://img.shields.io/badge/telemetry-none-green)](docs/adr/0004-no-server.md)
+![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
+![No telemetry](https://img.shields.io/badge/telemetry-none-green)
 
 **Zenar is a free, lightweight desktop API client (a Postman and Bruno alternative) that stores your API collection in a plain Git repository and merges teammates' changes for you, so people who do not know Git can still collaborate through Git.**
 
@@ -83,23 +83,11 @@ Requirements: **Git must be installed** (Zenar uses your system `git` and its cr
 
 **How is Zenar different from Bruno?** Both keep collections as files you can put in Git. With Bruno you run Git yourself. Zenar runs Git for you and merges conflicting edits per field, which suits teams that include testers, PMs or support staff who do not use Git.
 
-**Does Zenar need an account or a server?** No. It works with the Git host you already use, including self-hosted GitLab, and has no telemetry. See [ADR 0004](docs/adr/0004-no-server.md).
+**Does Zenar need an account or a server?** No. It works with the Git host you already use, including self-hosted GitLab, and has no telemetry.
 
 **Where are my secrets stored?** In your operating system's keychain, on your machine only.
 
 **Does it work offline?** Yes. The collection is a local clone. Sync when you are back online.
-
-## Build from source
-
-Needs Node 22, pnpm 10, Rust (stable) and the [Tauri 2 prerequisites](https://v2.tauri.app/start/prerequisites/).
-
-```sh
-pnpm install
-pnpm tauri dev      # run in development
-pnpm tauri build    # produce an installer for your OS
-```
-
-The design decisions are in [`docs/adr`](docs/adr), the vocabulary in [`GLOSSARY.md`](GLOSSARY.md), the release process in [`docs/releasing.md`](docs/releasing.md).
 
 ## Tiếng Việt
 

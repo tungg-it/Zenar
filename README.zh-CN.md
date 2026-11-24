@@ -78,20 +78,8 @@
 
 **Zenar 和 Bruno 有什么不同？** 两者都把集合保存为可放入 Git 的文件。使用 Bruno 时需要你自己运行 Git；Zenar 替你运行 Git，并按字段合并冲突的修改，更适合团队里不使用 Git 的测试、产品或客服人员。
 
-**Zenar 需要账号或服务器吗？** 不需要。它使用你现有的 Git 托管（包括自建 GitLab），没有遥测。参见 [ADR 0004](docs/adr/0004-no-server.md)。
+**Zenar 需要账号或服务器吗？** 不需要。它使用你现有的 Git 托管（包括自建 GitLab），没有遥测。
 
 **机密信息存放在哪里？** 存放在操作系统的钥匙串中，仅在你的电脑上。
 
 **可以离线使用吗？** 可以。集合是本地克隆，恢复联网后再同步。
-
-## 从源码构建
-
-需要 Node 22、pnpm 10、Rust（stable）以及 [Tauri 2 的前置依赖](https://v2.tauri.app/start/prerequisites/)。
-
-```sh
-pnpm install
-pnpm tauri dev      # 开发模式运行
-pnpm tauri build    # 为你的操作系统生成安装包
-```
-
-设计决策见 [`docs/adr`](docs/adr)，术语见 [`GLOSSARY.md`](GLOSSARY.md)，发布流程见 [`docs/releasing.md`](docs/releasing.md)。

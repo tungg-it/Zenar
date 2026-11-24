@@ -78,20 +78,8 @@ Yêu cầu: **phải cài Git** (Zenar dùng lệnh `git` và credential helper 
 
 **Zenar khác Bruno thế nào?** Cả hai đều lưu collection thành file để đưa vào Git. Với Bruno bạn tự chạy Git. Zenar chạy Git giúp bạn và gộp các sửa đổi trùng nhau theo từng Field, phù hợp với đội có tester, PM hay CSKH không dùng Git.
 
-**Zenar có cần tài khoản hay server không?** Không. Zenar làm việc với host Git bạn đang dùng, kể cả GitLab tự host, và không có telemetry. Xem [ADR 0004](docs/adr/0004-no-server.md).
+**Zenar có cần tài khoản hay server không?** Không. Zenar làm việc với host Git bạn đang dùng, kể cả GitLab tự host, và không có telemetry.
 
 **Secret được lưu ở đâu?** Trong keychain của hệ điều hành, chỉ trên máy bạn.
 
 **Có chạy offline được không?** Có. Collection là bản clone trên máy. Đồng bộ khi có mạng lại.
-
-## Build từ source
-
-Cần Node 22, pnpm 10, Rust (stable) và [điều kiện tiên quyết của Tauri 2](https://v2.tauri.app/start/prerequisites/).
-
-```sh
-pnpm install
-pnpm tauri dev      # chạy khi phát triển
-pnpm tauri build    # tạo bộ cài cho hệ điều hành của bạn
-```
-
-Các quyết định thiết kế nằm ở [`docs/adr`](docs/adr), thuật ngữ ở [`GLOSSARY.md`](GLOSSARY.md), quy trình phát hành ở [`docs/releasing.md`](docs/releasing.md).
