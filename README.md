@@ -64,8 +64,6 @@ Requirements: **Git must be installed** (Zenar uses your system `git` and its cr
 3. Create requests and folders, pick an **Environment** (dev, staging, ...), and press **Send**.
 4. Press **Save**. Teammates get your change on their next sync. If you both edited the same field, Zenar asks which one to keep.
 
-Sample requests for GraphQL, binary and form-data bodies are in [`docs/samples`](docs/samples).
-
 ## Features
 
 - REST requests: methods, query params, headers, auth, JSON / form-data / urlencoded / raw / binary bodies
