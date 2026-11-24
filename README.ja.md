@@ -40,15 +40,15 @@ REST と GraphQL のリクエストを送信し、GitHub や GitLab（セルフ�
 
 ## ダウンロードとインストール
 
-**最新バージョン：0.1.0** → [updates-zenar.tungit.io.vn](https://updates-zenar.tungit.io.vn/index.html)
+**最新バージョン：0.1.0**
 
 | OS | ダウンロードするファイル | インストール方法 |
 | --- | --- | --- |
-| **macOS**（Apple Silicon・Intel） | `Zenar_0.1.0_universal.dmg` | `.dmg` を開き、**Zenar** を**アプリケーション**にドラッグします。未確認の開発元と表示された場合は、アプリを右クリックして**開く**を選び、もう一度**開く**を押します。または `xattr -dr com.apple.quarantine /Applications/Zenar.app` を実行します。 |
-| **Windows** 10 / 11（x64） | `Zenar_0.1.0_x64-setup.exe` | インストーラーを実行します。現在のビルドはコード署名されていないため、SmartScreen が警告する場合があります。**詳細情報**、**実行**の順に押してください。Windows 対応は実験的です。 |
-| **Linux**：全ディストリビューション | `Zenar_0.1.0_amd64.AppImage` | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`。このファイルは自動更新に対応します。 |
-| **Linux**：Debian / Ubuntu | `Zenar_0.1.0_amd64.deb` | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
-| **Linux**：Fedora / RHEL / openSUSE | `Zenar-0.1.0-1.x86_64.rpm` | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
+| **macOS**（Apple Silicon・Intel） | [`Zenar_0.1.0_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) | `.dmg` を開き、**Zenar** を**アプリケーション**にドラッグします。未確認の開発元と表示された場合は、アプリを右クリックして**開く**を選び、もう一度**開く**を押します。または `xattr -dr com.apple.quarantine /Applications/Zenar.app` を実行します。 |
+| **Windows** 10 / 11（x64） | [`Zenar_0.1.0_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) | インストーラーを実行します。現在のビルドはコード署名されていないため、SmartScreen が警告する場合があります。**詳細情報**、**実行**の順に押してください。Windows 対応は実験的です。 |
+| **Linux**：全ディストリビューション | [`Zenar_0.1.0_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`。このファイルは自動更新に対応します。 |
+| **Linux**：Debian / Ubuntu | [`Zenar_0.1.0_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
+| **Linux**：Fedora / RHEL / openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
 
 動作条件：**Git のインストールが必須**です（Zenar はシステムの `git` とその認証ヘルパーを使います）。Linux では WebKitGTK 4.1（`libwebkit2gtk-4.1`）も必要です。
 

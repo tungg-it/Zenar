@@ -45,15 +45,15 @@ Competitor details are summarized from their public documentation and change ove
 
 ## Download and install
 
-**Latest version: 0.1.0** → [updates-zenar.tungit.io.vn](https://updates-zenar.tungit.io.vn/index.html)
+**Latest version: 0.1.0**
 
 | OS | File to download | How to install |
 | --- | --- | --- |
-| **macOS** (Apple Silicon and Intel) | `Zenar_0.1.0_universal.dmg` | Open the `.dmg`, drag **Zenar** to **Applications**. If macOS says the app is from an unidentified developer, right-click the app, choose **Open**, then **Open** again. Or run `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
-| **Windows** 10 / 11 (x64) | `Zenar_0.1.0_x64-setup.exe` | Run the installer. The build is not code-signed yet, so SmartScreen may warn: click **More info**, then **Run anyway**. Windows support is experimental. |
-| **Linux**: any distro | `Zenar_0.1.0_amd64.AppImage` | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`. This one updates itself. |
-| **Linux**: Debian / Ubuntu | `Zenar_0.1.0_amd64.deb` | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
-| **Linux**: Fedora / RHEL / openSUSE | `Zenar-0.1.0-1.x86_64.rpm` | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
+| **macOS** (Apple Silicon and Intel) | [`Zenar_0.1.0_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) | Open the `.dmg`, drag **Zenar** to **Applications**. If macOS says the app is from an unidentified developer, right-click the app, choose **Open**, then **Open** again. Or run `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
+| **Windows** 10 / 11 (x64) | [`Zenar_0.1.0_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) | Run the installer. The build is not code-signed yet, so SmartScreen may warn: click **More info**, then **Run anyway**. Windows support is experimental. |
+| **Linux**: any distro | [`Zenar_0.1.0_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`. This one updates itself. |
+| **Linux**: Debian / Ubuntu | [`Zenar_0.1.0_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
+| **Linux**: Fedora / RHEL / openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
 
 Requirements: **Git must be installed** (Zenar uses your system `git` and its credential helper). Linux also needs WebKitGTK 4.1 (`libwebkit2gtk-4.1`).
 
