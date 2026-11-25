@@ -40,15 +40,15 @@ Thông tin về đối thủ tóm tắt từ tài liệu công khai của họ v
 
 ## Tải và cài đặt
 
-**Phiên bản mới nhất: 0.1.0**
+**Phiên bản mới nhất: 0.1.1**
 
 | Hệ điều hành | File cần tải | Cách cài |
 | --- | --- | --- |
-| **macOS** (Apple Silicon và Intel) | [`Zenar_0.1.0_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) | Mở `.dmg`, kéo **Zenar** vào **Applications**. Nếu macOS báo app từ nhà phát triển không xác định, bấm chuột phải vào app, chọn **Open**, rồi **Open** lần nữa. Hoặc chạy `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
-| **Windows** 10 / 11 (x64) | [`Zenar_0.1.0_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) | Chạy bộ cài. Bản build chưa được ký số nên SmartScreen có thể cảnh báo: bấm **More info**, rồi **Run anyway**. Hỗ trợ Windows còn đang thử nghiệm. |
-| **Linux**: mọi bản phân phối | [`Zenar_0.1.0_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`. Bản này tự cập nhật. |
-| **Linux**: Debian / Ubuntu | [`Zenar_0.1.0_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
-| **Linux**: Fedora / RHEL / openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
+| **macOS** (Apple Silicon và Intel) | [`Zenar_0.1.1_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_universal.dmg) | Mở `.dmg`, kéo **Zenar** vào **Applications**. Nếu macOS báo app từ nhà phát triển không xác định, bấm chuột phải vào app, chọn **Open**, rồi **Open** lần nữa. Hoặc chạy `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
+| **Windows** 10 / 11 (x64) | [`Zenar_0.1.1_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_x64-setup.exe) | Chạy bộ cài. Bản build chưa được ký số nên SmartScreen có thể cảnh báo: bấm **More info**, rồi **Run anyway**. Hỗ trợ Windows còn đang thử nghiệm. |
+| **Linux**: mọi bản phân phối | [`Zenar_0.1.1_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.AppImage) | `chmod +x Zenar_0.1.1_amd64.AppImage && ./Zenar_0.1.1_amd64.AppImage`. Bản này tự cập nhật. |
+| **Linux**: Debian / Ubuntu | [`Zenar_0.1.1_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.deb) | `sudo apt install ./Zenar_0.1.1_amd64.deb` |
+| **Linux**: Fedora / RHEL / openSUSE | [`Zenar-0.1.1-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar-0.1.1-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.1-1.x86_64.rpm` |
 
 Yêu cầu: **phải cài Git** (Zenar dùng lệnh `git` và credential helper của hệ thống). Linux cần thêm WebKitGTK 4.1 (`libwebkit2gtk-4.1`).
 

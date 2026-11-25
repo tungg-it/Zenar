@@ -40,15 +40,15 @@
 
 ## 下载与安装
 
-**最新版本：0.1.0**
+**最新版本：0.1.1**
 
 | 操作系统 | 下载文件 | 安装方法 |
 | --- | --- | --- |
-| **macOS**（Apple Silicon 和 Intel） | [`Zenar_0.1.0_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) | 打开 `.dmg`，将 **Zenar** 拖入**应用程序**。如果 macOS 提示来自身份不明的开发者，请右键点击应用，选择**打开**，再点一次**打开**。或运行 `xattr -dr com.apple.quarantine /Applications/Zenar.app`。 |
-| **Windows** 10 / 11（x64） | [`Zenar_0.1.0_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) | 运行安装程序。当前构建尚未代码签名，SmartScreen 可能会警告：点击**更多信息**，再点**仍要运行**。Windows 支持仍属实验性质。 |
-| **Linux**：任意发行版 | [`Zenar_0.1.0_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`。此版本可自动更新。 |
-| **Linux**：Debian / Ubuntu | [`Zenar_0.1.0_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
-| **Linux**：Fedora / RHEL / openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
+| **macOS**（Apple Silicon 和 Intel） | [`Zenar_0.1.1_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_universal.dmg) | 打开 `.dmg`，将 **Zenar** 拖入**应用程序**。如果 macOS 提示来自身份不明的开发者，请右键点击应用，选择**打开**，再点一次**打开**。或运行 `xattr -dr com.apple.quarantine /Applications/Zenar.app`。 |
+| **Windows** 10 / 11（x64） | [`Zenar_0.1.1_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_x64-setup.exe) | 运行安装程序。当前构建尚未代码签名，SmartScreen 可能会警告：点击**更多信息**，再点**仍要运行**。Windows 支持仍属实验性质。 |
+| **Linux**：任意发行版 | [`Zenar_0.1.1_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.AppImage) | `chmod +x Zenar_0.1.1_amd64.AppImage && ./Zenar_0.1.1_amd64.AppImage`。此版本可自动更新。 |
+| **Linux**：Debian / Ubuntu | [`Zenar_0.1.1_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.deb) | `sudo apt install ./Zenar_0.1.1_amd64.deb` |
+| **Linux**：Fedora / RHEL / openSUSE | [`Zenar-0.1.1-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar-0.1.1-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.1-1.x86_64.rpm` |
 
 系统要求：**必须安装 Git**（Zenar 使用系统的 `git` 及其凭据助手）。Linux 还需要 WebKitGTK 4.1（`libwebkit2gtk-4.1`）。
 
