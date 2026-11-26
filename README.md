@@ -2,7 +2,7 @@
 
 **English** · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
-[![Version](https://img.shields.io/badge/version-0.1.1-blue)](https://updates-zenar.tungit.io.vn/index.html)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue)](https://zenar.tungit.io.vn/index.html)
 [![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)](#download-and-install)
 ![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
 ![No telemetry](https://img.shields.io/badge/telemetry-none-green)
@@ -45,15 +45,15 @@ Competitor details are summarized from their public documentation and change ove
 
 ## Download and install
 
-**Latest version: 0.1.1**
+**Latest version: 0.1.0**
 
 | OS | File to download | How to install |
 | --- | --- | --- |
-| **macOS** (Apple Silicon and Intel) | [`Zenar_0.1.1_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_universal.dmg) | Open the `.dmg`, drag **Zenar** to **Applications**. If macOS says the app is from an unidentified developer, right-click the app, choose **Open**, then **Open** again. Or run `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
-| **Windows** 10 / 11 (x64) | [`Zenar_0.1.1_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_x64-setup.exe) | Run the installer. The build is not code-signed yet, so SmartScreen may warn: click **More info**, then **Run anyway**. On Windows 11 with **Smart App Control** on, the installer is blocked outright (there is no Run anyway): turn Smart App Control off in **Windows Security → App & browser control → Smart App Control settings**, then run it again. On some Windows versions Smart App Control cannot be turned back on without reinstalling Windows, so decide first, or wait for a signed build. Windows support is experimental. |
-| **Linux**: any distro | [`Zenar_0.1.1_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.AppImage) | `chmod +x Zenar_0.1.1_amd64.AppImage && ./Zenar_0.1.1_amd64.AppImage`. This one updates itself. |
-| **Linux**: Debian / Ubuntu | [`Zenar_0.1.1_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.deb) | `sudo apt install ./Zenar_0.1.1_amd64.deb` |
-| **Linux**: Fedora / RHEL / openSUSE | [`Zenar-0.1.1-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar-0.1.1-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.1-1.x86_64.rpm` |
+| **macOS** (Apple Silicon and Intel) | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) | Open the `.dmg`, drag **Zenar** to **Applications**. If macOS says the app is from an unidentified developer, right-click the app, choose **Open**, then **Open** again. Or run `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
+| **Windows** 10 / 11 (x64) | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) | Run the installer. The build is not code-signed yet, so SmartScreen may warn: click **More info**, then **Run anyway**. On Windows 11 with **Smart App Control** on, the installer is blocked outright (there is no Run anyway): turn Smart App Control off in **Windows Security → App & browser control → Smart App Control settings**, then run it again. On some Windows versions Smart App Control cannot be turned back on without reinstalling Windows, so decide first, or wait for a signed build. Windows support is experimental. |
+| **Linux**: any distro | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`. This one updates itself. |
+| **Linux**: Debian / Ubuntu | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
+| **Linux**: Fedora / RHEL / openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
 
 Requirements: **Git must be installed** (Zenar uses your system `git` and its credential helper). Linux also needs WebKitGTK 4.1 (`libwebkit2gtk-4.1`).
 
@@ -91,10 +91,10 @@ Requirements: **Git must be installed** (Zenar uses your system `git` and its cr
 - Windows: `%APPDATA%\app.zenar.desktop\secrets.json`
 - Linux: `~/.local/share/app.zenar.desktop/secrets.json` (or `$XDG_DATA_HOME/app.zenar.desktop/secrets.json`)
 
-The file is plain text (on macOS and Linux only your user can read it) and never enters the repo. Version 0.1.0 kept secrets in the OS keychain and they are not moved over, so after updating from 0.1.0 fill your secret values in again.
+The file is plain text (on macOS and Linux only your user can read it) and never enters the repo.
 
 **Does it work offline?** Yes. The collection is a local clone. Sync when you are back online.
 
 ## Tiếng Việt
 
-Zenar là ứng dụng desktop miễn phí để gọi API (thay thế Postman, Bruno), lưu Collection trong một repo Git và tự gộp thay đổi của đồng đội theo từng Field, dành cho cả người không rành Git. Tải bản mới nhất ở [Releases](https://updates-zenar.tungit.io.vn/index.html).
+Zenar là ứng dụng desktop miễn phí để gọi API (thay thế Postman, Bruno), lưu Collection trong một repo Git và tự gộp thay đổi của đồng đội theo từng Field, dành cho cả người không rành Git. Tải bản mới nhất ở [Releases](https://zenar.tungit.io.vn/index.html).
