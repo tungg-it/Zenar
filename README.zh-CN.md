@@ -80,6 +80,12 @@
 
 **Zenar 需要账号或服务器吗？** 不需要。它使用你现有的 Git 托管（包括自建 GitLab），没有遥测。
 
-**机密信息存放在哪里？** 存放在 Zenar 应用数据目录下的 `secrets.json` 中，仅在你的电脑上。该文件为明文（在 macOS 和 Linux 上只有你的用户可读），且永远不会进入仓库。
+**机密信息存放在哪里？** 存放在 Zenar 应用数据目录下的 `secrets.json` 中，仅在你的电脑上：
+
+- macOS: `~/Library/Application Support/app.zenar.desktop/secrets.json`
+- Windows: `%APPDATA%\app.zenar.desktop\secrets.json`
+- Linux: `~/.local/share/app.zenar.desktop/secrets.json`（或 `$XDG_DATA_HOME/app.zenar.desktop/secrets.json`）
+
+该文件为明文（在 macOS 和 Linux 上只有你的用户可读），且永远不会进入仓库。0.1.0 版本将机密保存在操作系统钥匙串中，升级后不会自动迁移，因此从 0.1.0 更新后请重新填写机密值。
 
 **可以离线使用吗？** 可以。集合是本地克隆，恢复联网后再同步。

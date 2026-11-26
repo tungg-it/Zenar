@@ -85,7 +85,13 @@ Requirements: **Git must be installed** (Zenar uses your system `git` and its cr
 
 **Does Zenar need an account or a server?** No. It works with the Git host you already use, including self-hosted GitLab, and has no telemetry.
 
-**Where are my secrets stored?** In `secrets.json` in Zenar's app data folder, on your machine only. The file is plain text (on macOS and Linux only your user can read it) and never enters the repo.
+**Where are my secrets stored?** In `secrets.json` in Zenar's app data folder, on your machine only:
+
+- macOS: `~/Library/Application Support/app.zenar.desktop/secrets.json`
+- Windows: `%APPDATA%\app.zenar.desktop\secrets.json`
+- Linux: `~/.local/share/app.zenar.desktop/secrets.json` (or `$XDG_DATA_HOME/app.zenar.desktop/secrets.json`)
+
+The file is plain text (on macOS and Linux only your user can read it) and never enters the repo. Version 0.1.0 kept secrets in the OS keychain and they are not moved over, so after updating from 0.1.0 fill your secret values in again.
 
 **Does it work offline?** Yes. The collection is a local clone. Sync when you are back online.
 

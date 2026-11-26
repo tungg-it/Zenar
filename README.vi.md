@@ -80,6 +80,12 @@ Yêu cầu: **phải cài Git** (Zenar dùng lệnh `git` và credential helper 
 
 **Zenar có cần tài khoản hay server không?** Không. Zenar làm việc với host Git bạn đang dùng, kể cả GitLab tự host, và không có telemetry.
 
-**Secret được lưu ở đâu?** Trong file `secrets.json` ở thư mục dữ liệu của Zenar, chỉ trên máy bạn. File ở dạng văn bản thường (trên macOS và Linux chỉ tài khoản của bạn đọc được) và không bao giờ vào repo.
+**Secret được lưu ở đâu?** Trong file `secrets.json` ở thư mục dữ liệu của Zenar, chỉ trên máy bạn:
+
+- macOS: `~/Library/Application Support/app.zenar.desktop/secrets.json`
+- Windows: `%APPDATA%\app.zenar.desktop\secrets.json`
+- Linux: `~/.local/share/app.zenar.desktop/secrets.json` (hoặc `$XDG_DATA_HOME/app.zenar.desktop/secrets.json`)
+
+File ở dạng văn bản thường (trên macOS và Linux chỉ tài khoản của bạn đọc được) và không bao giờ vào repo. Bản 0.1.0 lưu Secret trong keychain của hệ điều hành và không được chuyển sang, nên sau khi cập nhật từ 0.1.0 hãy điền lại giá trị Secret.
 
 **Có chạy offline được không?** Có. Collection là bản clone trên máy. Đồng bộ khi có mạng lại.

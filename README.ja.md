@@ -80,6 +80,12 @@ REST と GraphQL のリクエストを送信し、GitHub や GitLab（セルフ�
 
 **アカウントやサーバーは必要ですか？** いいえ。セルフホストの GitLab を含め、すでに使っている Git ホストで動作し、テレメトリもありません。
 
-**シークレットはどこに保存されますか？** Zenar のアプリデータフォルダ内の `secrets.json` に、あなたのマシン上だけに保存されます。このファイルはプレーンテキストです（macOS と Linux ではあなたのユーザーだけが読めます）。リポジトリに入ることはありません。
+**シークレットはどこに保存されますか？** Zenar のアプリデータフォルダ内の `secrets.json` に、あなたのマシン上だけに保存されます：
+
+- macOS: `~/Library/Application Support/app.zenar.desktop/secrets.json`
+- Windows: `%APPDATA%\app.zenar.desktop\secrets.json`
+- Linux: `~/.local/share/app.zenar.desktop/secrets.json`（または `$XDG_DATA_HOME/app.zenar.desktop/secrets.json`）
+
+このファイルはプレーンテキストです（macOS と Linux ではあなたのユーザーだけが読めます）。リポジトリに入ることはありません。バージョン 0.1.0 ではシークレットを OS のキーチェーンに保存しており、自動では移行されないため、0.1.0 から更新した場合はシークレットの値をもう一度入力してください。
 
 **オフラインでも使えますか？** はい。コレクションはローカルのクローンなので、オンラインに戻ってから同期できます。
