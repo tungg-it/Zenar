@@ -15,7 +15,7 @@ Từ khoá: API client, REST client, GraphQL client, thay thế Postman, thay th
 - **Git là lớp đồng bộ.** Một Collection là một repo Git. Mỗi Request là một file YAML riêng nên diff và pull request dễ đọc.
 - **Xung đột do app tự xử lý.** Zenar gộp theo từng Field (method, URL, từng header, từng query param, auth, body, script) chứ không theo dòng văn bản. Hai người sửa hai header khác nhau của cùng một request sẽ không xung đột, và bạn không bao giờ thấy `<<<<<<<`. Không bao giờ force push.
 - **Dành cho người không rành Git.** Clone, commit, pull, push được ẩn sau nút Lưu và màn hình xung đột.
-- **Secret ở lại trên máy bạn.** Giá trị Secret nằm trong keychain của hệ điều hành, không vào repo. Đồng đội chỉ thấy tên biến và tự điền giá trị của mình.
+- **Secret ở lại trên máy bạn.** Giá trị Secret nằm trong một file trong thư mục dữ liệu của Zenar trên máy bạn, không vào repo. Đồng đội chỉ thấy tên biến và tự điền giá trị của mình.
 - **Nhập collection từ Postman.** Script viết cho `pm.*` vẫn chạy (API riêng của Zenar là `zn.*`).
 - **Không có server của chúng tôi.** App chỉ nói chuyện với host Git và API của bạn. Lời gọi mạng riêng duy nhất là kiểm tra cập nhật.
 - **Nhẹ và nhanh.** Lõi Rust, giao diện sáng/tối.
@@ -30,7 +30,7 @@ Từ khoá: API client, REST client, GraphQL client, thay thế Postman, thay th
 | Cộng tác nhóm | Qua mọi host Git bằng HTTPS (GitHub, GitLab, tự host) | Cloud của Postman, gói tính theo người dùng | Qua Git, bạn tự dùng công cụ Git |
 | App tự lo Git | **Có**: Lưu, pull, push tự động, Git bị ẩn | Một phần, tuỳ gói | Không, bạn tự chạy Git |
 | Xử lý xung đột | **Tự gộp theo Field**, chỉ hỏi khi thật sự trùng | Versioning và fork trên cloud | Merge văn bản thông thường của Git |
-| Secret | Keychain của hệ điều hành, không vào repo | Lưu trong tài khoản Postman | Giữ ngoài Git theo quy ước (file secret và `.env`) |
+| Secret | File trên máy bạn, không vào repo | Lưu trong tài khoản Postman | Giữ ngoài Git theo quy ước (file secret và `.env`) |
 | Nhập collection Postman | Có, script `pm.*` vẫn chạy | Gốc | Có |
 | Telemetry | Không | Dịch vụ cloud gắn tài khoản | Có thể tắt |
 | Nền tảng app | Native (Tauri + Rust) | Electron | Electron |
@@ -45,7 +45,7 @@ Thông tin về đối thủ tóm tắt từ tài liệu công khai của họ v
 | Hệ điều hành | File cần tải | Cách cài |
 | --- | --- | --- |
 | **macOS** (Apple Silicon và Intel) | [`Zenar_0.1.1_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_universal.dmg) | Mở `.dmg`, kéo **Zenar** vào **Applications**. Nếu macOS báo app từ nhà phát triển không xác định, bấm chuột phải vào app, chọn **Open**, rồi **Open** lần nữa. Hoặc chạy `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
-| **Windows** 10 / 11 (x64) | [`Zenar_0.1.1_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_x64-setup.exe) | Chạy bộ cài. Bản build chưa được ký số nên SmartScreen có thể cảnh báo: bấm **More info**, rồi **Run anyway**. Hỗ trợ Windows còn đang thử nghiệm. |
+| **Windows** 10 / 11 (x64) | [`Zenar_0.1.1_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_x64-setup.exe) | Chạy bộ cài. Bản build chưa được ký số nên SmartScreen có thể cảnh báo: bấm **More info**, rồi **Run anyway**. Trên Windows 11 đang bật **Smart App Control**, bộ cài bị chặn hẳn (không có nút Run anyway): tắt Smart App Control trong **Windows Security → App & browser control → Smart App Control settings**, rồi chạy lại. Trên một số bản Windows, đã tắt Smart App Control thì không bật lại được nếu không cài lại Windows, nên hãy cân nhắc trước, hoặc chờ bản đã ký số. Hỗ trợ Windows còn đang thử nghiệm. |
 | **Linux**: mọi bản phân phối | [`Zenar_0.1.1_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.AppImage) | `chmod +x Zenar_0.1.1_amd64.AppImage && ./Zenar_0.1.1_amd64.AppImage`. Bản này tự cập nhật. |
 | **Linux**: Debian / Ubuntu | [`Zenar_0.1.1_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.deb) | `sudo apt install ./Zenar_0.1.1_amd64.deb` |
 | **Linux**: Fedora / RHEL / openSUSE | [`Zenar-0.1.1-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar-0.1.1-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.1-1.x86_64.rpm` |
@@ -80,6 +80,6 @@ Yêu cầu: **phải cài Git** (Zenar dùng lệnh `git` và credential helper 
 
 **Zenar có cần tài khoản hay server không?** Không. Zenar làm việc với host Git bạn đang dùng, kể cả GitLab tự host, và không có telemetry.
 
-**Secret được lưu ở đâu?** Trong keychain của hệ điều hành, chỉ trên máy bạn.
+**Secret được lưu ở đâu?** Trong file `secrets.json` ở thư mục dữ liệu của Zenar, chỉ trên máy bạn. File ở dạng văn bản thường (trên macOS và Linux chỉ tài khoản của bạn đọc được) và không bao giờ vào repo.
 
 **Có chạy offline được không?** Có. Collection là bản clone trên máy. Đồng bộ khi có mạng lại.

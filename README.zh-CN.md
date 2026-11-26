@@ -15,7 +15,7 @@
 - **Git 就是同步层。** 一个 Collection 对应一个 Git 仓库，每个 Request 是一个独立的 YAML 文件，差异和 Pull Request 一目了然。
 - **应用自动解决冲突。** Zenar 按字段（方法、URL、每个 Header、每个查询参数、认证、Body、脚本）合并，而不是按文本行。两个人修改同一请求的不同 Header 不会冲突，你也不会看到 `<<<<<<<`。从不强制推送。
 - **为不懂 Git 的人设计。** Clone、commit、pull、push 都隐藏在“保存”和冲突界面之后。
-- **机密留在你的电脑上。** Secret 的值存放在操作系统钥匙串中，不会进入仓库。队友只能看到变量名，并填写自己的值。
+- **机密留在你的电脑上。** Secret 的值存放在 Zenar 应用数据目录下的本地文件中，不会进入仓库。队友只能看到变量名，并填写自己的值。
 - **导入 Postman 集合。** 为 `pm.*` 编写的脚本照常运行（Zenar 自己的 API 是 `zn.*`）。
 - **没有我们自己的服务器。** 应用只与你的 Git 托管和你的 API 通信，唯一自己发起的网络请求是检查更新。
 - **轻量快速。** Rust 内核，支持浅色和深色主题。
@@ -30,7 +30,7 @@
 | 团队协作 | 通过任意 Git 托管的 HTTPS（GitHub、GitLab、自建） | Postman 云，按席位付费 | 通过 Git，由你自己使用 Git 工具 |
 | 由应用处理 Git | **是**：保存、pull、push 自动完成，Git 被隐藏 | 部分，取决于套餐 | 否，需要自己运行 Git |
 | 冲突处理 | **按字段自动合并**，仅在真正冲突时询问 | 云端版本管理与 Fork | 普通 Git 文本合并 |
-| 机密信息 | 操作系统钥匙串，不进入仓库 | 保存在 Postman 账号中 | 按约定排除在 Git 之外（secret 和 `.env` 文件） |
+| 机密信息 | 你电脑上的本地文件，不进入仓库 | 保存在 Postman 账号中 | 按约定排除在 Git 之外（secret 和 `.env` 文件） |
 | 导入 Postman 集合 | 是，`pm.*` 脚本照常运行 | 原生 | 是 |
 | 遥测 | 无 | 基于账号的云服务 | 可选择关闭 |
 | 应用运行时 | 原生（Tauri + Rust） | Electron | Electron |
@@ -45,7 +45,7 @@
 | 操作系统 | 下载文件 | 安装方法 |
 | --- | --- | --- |
 | **macOS**（Apple Silicon 和 Intel） | [`Zenar_0.1.1_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_universal.dmg) | 打开 `.dmg`，将 **Zenar** 拖入**应用程序**。如果 macOS 提示来自身份不明的开发者，请右键点击应用，选择**打开**，再点一次**打开**。或运行 `xattr -dr com.apple.quarantine /Applications/Zenar.app`。 |
-| **Windows** 10 / 11（x64） | [`Zenar_0.1.1_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_x64-setup.exe) | 运行安装程序。当前构建尚未代码签名，SmartScreen 可能会警告：点击**更多信息**，再点**仍要运行**。Windows 支持仍属实验性质。 |
+| **Windows** 10 / 11（x64） | [`Zenar_0.1.1_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_x64-setup.exe) | 运行安装程序。当前构建尚未代码签名，SmartScreen 可能会警告：点击**更多信息**，再点**仍要运行**。在开启了**智能应用控制（Smart App Control）**的 Windows 11 上，安装程序会被直接阻止（没有“仍要运行”）：请在 **Windows 安全中心 → 应用和浏览器控制 → 智能应用控制设置** 中将其关闭，然后重新运行。在部分 Windows 版本上，关闭后若不重装 Windows 就无法再次开启，请先权衡，或等待已签名的版本。Windows 支持仍属实验性质。 |
 | **Linux**：任意发行版 | [`Zenar_0.1.1_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.AppImage) | `chmod +x Zenar_0.1.1_amd64.AppImage && ./Zenar_0.1.1_amd64.AppImage`。此版本可自动更新。 |
 | **Linux**：Debian / Ubuntu | [`Zenar_0.1.1_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.deb) | `sudo apt install ./Zenar_0.1.1_amd64.deb` |
 | **Linux**：Fedora / RHEL / openSUSE | [`Zenar-0.1.1-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar-0.1.1-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.1-1.x86_64.rpm` |
@@ -80,6 +80,6 @@
 
 **Zenar 需要账号或服务器吗？** 不需要。它使用你现有的 Git 托管（包括自建 GitLab），没有遥测。
 
-**机密信息存放在哪里？** 存放在操作系统的钥匙串中，仅在你的电脑上。
+**机密信息存放在哪里？** 存放在 Zenar 应用数据目录下的 `secrets.json` 中，仅在你的电脑上。该文件为明文（在 macOS 和 Linux 上只有你的用户可读），且永远不会进入仓库。
 
 **可以离线使用吗？** 可以。集合是本地克隆，恢复联网后再同步。

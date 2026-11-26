@@ -20,7 +20,7 @@ Keywords: API client, REST client, GraphQL client, Postman alternative, Bruno al
 - **Git is the sync layer.** A Collection is one Git repo. Every Request is its own YAML file, so diffs and pull requests are readable.
 - **Conflicts the app can resolve.** Zenar merges per field (method, URL, each header, each query param, auth, body, script) instead of per text line. Two people editing different headers of the same request never conflict, and you never see `<<<<<<<` markers. It never force-pushes.
 - **For people who do not know Git.** Clone, commit, pull and push are hidden behind Save and a conflict screen.
-- **Secrets stay on your machine.** Secret values live in your OS keychain and never enter the repo. Teammates see the variable name and fill in their own value.
+- **Secrets stay on your machine.** Secret values live in a local file in Zenar's app data folder and never enter the repo. Teammates see the variable name and fill in their own value.
 - **Bring your Postman collections.** Import Postman collections, and scripts written for `pm.*` keep running (Zenar's own API is `zn.*`).
 - **No server of ours.** The app talks to your Git host and your APIs, nothing else. The only network call of its own is checking for updates.
 - **Light and fast.** Rust core, small native app, light and dark themes.
@@ -35,7 +35,7 @@ Keywords: API client, REST client, GraphQL client, Postman alternative, Bruno al
 | Team collaboration | Through any Git host over HTTPS (GitHub, GitLab, self-hosted) | Postman cloud, per-seat plans | Through Git, using your own Git tools |
 | Git handled by the app | **Yes**: Save, pull and push are automatic, Git is hidden | Partial, on supported plans | No, you run Git yourself |
 | Conflict handling | **Field-level automatic merge**, you only pick on a true clash | Cloud versioning and forks | Normal Git text merge |
-| Secrets | OS keychain, never in the repo | Stored in your Postman account | Kept out of Git by convention (secret and `.env` files) |
+| Secrets | Local file on your machine, never in the repo | Stored in your Postman account | Kept out of Git by convention (secret and `.env` files) |
 | Import Postman collections | Yes, `pm.*` scripts still run | Native | Yes |
 | Telemetry | None | Account-based cloud service | Opt-out |
 | App runtime | Native (Tauri + Rust) | Electron | Electron |
@@ -50,7 +50,7 @@ Competitor details are summarized from their public documentation and change ove
 | OS | File to download | How to install |
 | --- | --- | --- |
 | **macOS** (Apple Silicon and Intel) | [`Zenar_0.1.1_universal.dmg`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_universal.dmg) | Open the `.dmg`, drag **Zenar** to **Applications**. If macOS says the app is from an unidentified developer, right-click the app, choose **Open**, then **Open** again. Or run `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
-| **Windows** 10 / 11 (x64) | [`Zenar_0.1.1_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_x64-setup.exe) | Run the installer. The build is not code-signed yet, so SmartScreen may warn: click **More info**, then **Run anyway**. Windows support is experimental. |
+| **Windows** 10 / 11 (x64) | [`Zenar_0.1.1_x64-setup.exe`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_x64-setup.exe) | Run the installer. The build is not code-signed yet, so SmartScreen may warn: click **More info**, then **Run anyway**. On Windows 11 with **Smart App Control** on, the installer is blocked outright (there is no Run anyway): turn Smart App Control off in **Windows Security → App & browser control → Smart App Control settings**, then run it again. On some Windows versions Smart App Control cannot be turned back on without reinstalling Windows, so decide first, or wait for a signed build. Windows support is experimental. |
 | **Linux**: any distro | [`Zenar_0.1.1_amd64.AppImage`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.AppImage) | `chmod +x Zenar_0.1.1_amd64.AppImage && ./Zenar_0.1.1_amd64.AppImage`. This one updates itself. |
 | **Linux**: Debian / Ubuntu | [`Zenar_0.1.1_amd64.deb`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar_0.1.1_amd64.deb) | `sudo apt install ./Zenar_0.1.1_amd64.deb` |
 | **Linux**: Fedora / RHEL / openSUSE | [`Zenar-0.1.1-1.x86_64.rpm`](https://updates-zenar.tungit.io.vn/stable/0.1.1/Zenar-0.1.1-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.1-1.x86_64.rpm` |
@@ -85,7 +85,7 @@ Requirements: **Git must be installed** (Zenar uses your system `git` and its cr
 
 **Does Zenar need an account or a server?** No. It works with the Git host you already use, including self-hosted GitLab, and has no telemetry.
 
-**Where are my secrets stored?** In your operating system's keychain, on your machine only.
+**Where are my secrets stored?** In `secrets.json` in Zenar's app data folder, on your machine only. The file is plain text (on macOS and Linux only your user can read it) and never enters the repo.
 
 **Does it work offline?** Yes. The collection is a local clone. Sync when you are back online.
 
