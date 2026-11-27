@@ -9,13 +9,13 @@
 ![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
 ![No telemetry](https://img.shields.io/badge/telemetry-none-green)
 
-**Zenar 是一款免费、开源的桌面 API 客户端（Postman、Bruno 替代品），把 Collection 保存在团队的 Git 仓库中。Git 在后台运行：你只会看到 Save 和 Conflict。开发、测试（QA）和业务分析（BA）都能上手。**
+**Zenar 是一款免费、源码公开的桌面 API 客户端（Postman、Bruno 替代品），把 Collection 保存在团队的 Git 仓库中。Git 在后台运行：你只会看到 Save 和 Conflict。开发、测试（QA）和业务分析（BA）都能上手。**
 
 官网：[getzenar.vercel.app](https://getzenar.vercel.app)
 
 <p align="center"><img src="assets/workspace.png" alt="Zenar 主窗口：左侧是 Collection 树，中间是 Request 和响应" width="900"></p>
 
-> 免费 · 开源 · 无需账号。Zenar 是原生桌面应用（Tauri + Rust），不是 Electron。无需登录，没有遥测，没有自己的服务器。可离线使用。
+> 免费 · 源码公开 · 无需账号。Zenar 是原生桌面应用（Tauri + Rust），不是 Electron。无需登录，没有遥测，没有自己的服务器。可离线使用。
 
 支持任何通过 HTTPS 访问的 Git 托管：GitHub、GitLab.com、自建 GitLab、Gitea、Bitbucket、Forgejo、企业内部 Git。
 
@@ -78,7 +78,7 @@
 | 运行 Postman `pm` 脚本 | 无需修改 | 是 | 导入时转换 | 导入时转换 |
 | 文件格式 | YAML，每个 Request 一个文件 | 导出为 JSON | `.bru` 或 YAML | YAML |
 | 应用运行时 | Tauri + Rust | Electron | Electron | Electron |
-| 价格 | 免费、开源 | 有限的免费套餐，按用户付费 | 开源，提供付费版 | 开源核心，有免费套餐，按用户付费 |
+| 价格 | 免费、源码公开 | 有限的免费套餐，按用户付费 | 开源，提供付费版 | 开源核心，有免费套餐，按用户付费 |
 
 以上对比基于撰写时（2026 年 11 月）Postman、Bruno 和 Insomnia 的公开文档。其功能和价格此后可能已有变化。欢迎指正：请提交 issue。
 
@@ -155,6 +155,29 @@ AppImage 会自动更新；`.deb` 和 `.rpm` 在有新版本时会打开下载�
 
 可自动更新的版本在安装并重启前都会验证签名。签名不匹配的更新绝不会被安装。
 
+## 从源码构建
+
+本仓库包含 Zenar **0.1.0** 版本的源码，不会随每次发布更新。如需最新版本，请下载上面的官方版本。
+
+自行构建的版本**没有自动更新**：本源码不包含更新代码。如需更新版本，请下载官方版本。
+
+需要 [Rust](https://rustup.rs)（stable）、Node.js 22、[pnpm](https://pnpm.io) 10，以及你所用系统的 [Tauri 前置依赖](https://v2.tauri.app/start/prerequisites/)（Linux：WebKitGTK 4.1 及其开发包）。
+
+```sh
+git clone https://github.com/tungg-it/Zenar.git
+cd Zenar/app
+pnpm install
+pnpm tauri dev      # 以开发模式运行
+pnpm tauri build    # 构建安装包到 target/release/bundle/
+cargo test --workspace
+```
+
+## 许可证
+
+Zenar **源码公开，但不是开源软件**。根据 [Zenar Source-Available License](LICENSE)，你可以为自己或在你的组织内部阅读、构建、运行和修改它。你**不得**以任何形式再分发（源码或构建产物，原版或修改版），不得出售，也不得作为服务提供给他人。不得将 Zenar 名称和标志用于其他软件。
+
+**贡献：** 本仓库不接受 pull request。请在 [Issues](https://github.com/tungg-it/Zenar/issues) 中报告问题和提出功能需求。
+
 ## 常见问题
 
 **不懂 Git 能用吗？** 能。你只会看到保存按钮，以及出现冲突时的 Needs Attention 列表。需要有人在你的电脑上安装一次 Git 并登录托管平台。
@@ -175,7 +198,7 @@ AppImage 会自动更新；`.deb` 和 `.rpm` 在有新版本时会打开下载�
 
 该文件是纯文本（在 macOS 和 Linux 上只有你的用户可以读取），绝不会进入仓库。
 
-**Zenar 收费吗？** 不收费。Zenar 免费且开源，唯一的基础设施成本是托管更新文件。
+**Zenar 收费吗？** 不收费。Zenar 免费，源码公开，可阅读和自行构建。唯一的基础设施成本是托管更新文件。
 
 ---
 

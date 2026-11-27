@@ -9,13 +9,13 @@
 ![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
 ![No telemetry](https://img.shields.io/badge/telemetry-none-green)
 
-**Zenar là app desktop gọi API miễn phí, mã nguồn mở (thay thế Postman, Bruno), lưu Collection trong repo Git của team. Git chạy ngầm: bạn chỉ thấy Save và Conflict. Dev, QA hay BA đều dùng được.**
+**Zenar là app desktop gọi API miễn phí, công khai mã nguồn (thay thế Postman, Bruno), lưu Collection trong repo Git của team. Git chạy ngầm: bạn chỉ thấy Save và Conflict. Dev, QA hay BA đều dùng được.**
 
 Website: [getzenar.vercel.app](https://getzenar.vercel.app)
 
 <p align="center"><img src="assets/workspace.png" alt="Màn hình chính của Zenar: cây Collection bên trái, Request và Response ở giữa" width="900"></p>
 
-> Miễn phí · Mã nguồn mở · Không cần tài khoản. Zenar là app desktop native (Tauri + Rust), không phải Electron. Không đăng nhập, không telemetry, không có server riêng. Chạy được offline.
+> Miễn phí · Công khai mã nguồn · Không cần tài khoản. Zenar là app desktop native (Tauri + Rust), không phải Electron. Không đăng nhập, không telemetry, không có server riêng. Chạy được offline.
 
 Chạy với mọi host Git qua HTTPS: GitHub, GitLab.com, GitLab tự host, Gitea, Bitbucket, Forgejo, repo Git nội bộ.
 
@@ -78,7 +78,7 @@ Cả bốn công cụ đều gửi được request. Khác nhau ở chỗ dữ l
 | Chạy script `pm` của Postman | Chạy nguyên | Có | Chuyển đổi khi import | Chuyển đổi khi import |
 | Định dạng file | YAML, mỗi Request một file | JSON khi export | `.bru` hoặc YAML | YAML |
 | Nền tảng app | Tauri + Rust | Electron | Electron | Electron |
-| Giá | Miễn phí, mã nguồn mở | Gói free có giới hạn, trả phí theo người | Mã nguồn mở, có bản trả phí | Lõi mã nguồn mở, có gói free, trả phí theo người |
+| Giá | Miễn phí, công khai mã nguồn | Gói free có giới hạn, trả phí theo người | Mã nguồn mở, có bản trả phí | Lõi mã nguồn mở, có gói free, trả phí theo người |
 
 So sánh dựa trên tài liệu công khai của Postman, Bruno và Insomnia tại thời điểm viết (11/2026). Tính năng và giá của họ có thể đã thay đổi. Cần sửa gì, xin mở issue.
 
@@ -155,6 +155,29 @@ AppImage tự cập nhật; `.deb` và `.rpm` mở trang tải về khi có bả
 
 Các bản tự cập nhật đều xác minh chữ ký trước khi cài và mở lại. Chữ ký sai sẽ không bao giờ được cài.
 
+## Build từ source
+
+Repo này chứa source của Zenar ở phiên bản **0.1.0** và không được cập nhật theo từng bản phát hành. Muốn dùng bản mới nhất, hãy tải bản chính thức ở trên.
+
+Bản bạn tự build **không có Update tự động** vì source này không có code Update. Muốn lên phiên bản mới hơn, hãy tải bản chính thức.
+
+Cần có [Rust](https://rustup.rs) (stable), Node.js 22, [pnpm](https://pnpm.io) 10 và [các yêu cầu của Tauri](https://v2.tauri.app/start/prerequisites/) cho hệ điều hành của bạn (Linux: WebKitGTK 4.1 cùng các gói dev).
+
+```sh
+git clone https://github.com/tungg-it/Zenar.git
+cd Zenar/app
+pnpm install
+pnpm tauri dev      # chạy ở chế độ phát triển
+pnpm tauri build    # build bộ cài vào target/release/bundle/
+cargo test --workspace
+```
+
+## Giấy phép
+
+Zenar **công khai mã nguồn nhưng không phải mã nguồn mở**. Theo [Zenar Source-Available License](LICENSE), bạn được đọc, build, chạy và sửa cho bản thân hoặc trong nội bộ tổ chức của mình. Bạn **không** được phát hành lại dưới bất kỳ hình thức nào (source hay bản build, nguyên bản hay đã sửa), không được bán, và không được cung cấp cho người khác như một dịch vụ. Không được dùng tên và logo Zenar cho phần mềm khác.
+
+**Đóng góp:** repo này không nhận pull request. Báo lỗi và đề xuất tính năng trong [Issues](https://github.com/tungg-it/Zenar/issues).
+
 ## Câu hỏi thường gặp
 
 **Tôi không biết Git thì có dùng được không?** Được. Bạn chỉ thấy nút Save và danh sách Needs Attention khi có Conflict. Cần một người cài Git và đăng nhập host một lần trên máy bạn.
@@ -175,7 +198,7 @@ Các bản tự cập nhật đều xác minh chữ ký trước khi cài và m�
 
 File ở dạng văn bản thường (trên macOS và Linux chỉ tài khoản của bạn đọc được) và không bao giờ vào repo.
 
-**Zenar có thu phí không?** Không. Zenar miễn phí và mã nguồn mở. Chi phí hạ tầng duy nhất là nơi chứa file cập nhật.
+**Zenar có thu phí không?** Không. Zenar miễn phí, và mã nguồn được công khai để đọc và tự build. Chi phí hạ tầng duy nhất là nơi chứa file cập nhật.
 
 ---
 

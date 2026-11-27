@@ -1,0 +1,18 @@
+[package]
+name = "zenar-service"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+zenar-format = { path = "../zenar-format" }
+zenar-git = { path = "../zenar-git" }
+zenar-merge = { path = "../zenar-merge" }
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.9"
+ts-rs = "10"
+thiserror = "1"
+
+[dev-dependencies]
+serde_json = "1"
+tempfile = "3"
+zenar-store = { path = "../zenar-store" }

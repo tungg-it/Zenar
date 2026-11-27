@@ -1,0 +1,77 @@
+name: Pet Store
+collection auth: Some(Auth { kind: "bearer", token: Some("{{token}}"), username: None, password: None, key: None, value: None, location: None })
+--- folder admin (name "Admin", order 2, auth Some(Auth { kind: "basic", token: None, username: Some("root"), password: Some("pw"), key: None, value: None, location: None }))
+--- folder admin/nested (name "Nested", order 3, auth None)
+--- request in ""
+id: id-5
+name: List pets
+order: 1.0
+method: GET
+url: '{{baseUrl}}/pets'
+params:
+- id: id-1
+  key: limit
+  value: '10'
+  enabled: true
+- id: id-2
+  key: offset
+  value: ''
+  enabled: false
+headers:
+- id: id-3
+  key: Accept
+  value: application/json
+  enabled: true
+- id: id-4
+  key: X-Debug
+  value: '1'
+  enabled: false
+--- request in "admin"
+id: id-6
+name: Create pet
+order: 1.0
+method: POST
+url: '{{baseUrl}}/pets'
+body:
+  type: json
+  content: |-
+    {
+      "name": "Rex"
+    }
+--- request in "admin"
+id: id-7
+name: Login
+order: 2.0
+method: POST
+url: '{{baseUrl}}/login'
+auth:
+  type: none
+body:
+  type: form
+  content: user=a b
+--- request in "admin/nested"
+id: id-9
+name: Upload
+order: 1.0
+method: PUT
+url: '{{baseUrl}}/upload'
+auth:
+  type: apikey
+  key: X-Key
+  value: abc
+  in: query
+body:
+  type: formdata
+  content: ''
+  fields:
+  - id: id-8
+    key: f
+    value: ''
+    type: file
+    enabled: true
+--- request in ""
+id: id-10
+name: List pets
+order: 3.0
+method: DELETE
+url: '{{baseUrl}}/pets'

@@ -1,0 +1,391 @@
+{
+  "info": {
+    "name": "Zenar samples (GraphQL, binary, form-data, JSON, response views)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GraphQL",
+      "item": [
+        {
+          "name": "01 Country with variables (expect Vietnam)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query Country($code: ID!) {\n  country(code: $code) {\n    name\n    capital\n    currency\n    emoji\n  }\n}",
+                "variables": "{\n  \"code\": \"VN\"\n}"
+              }
+            },
+            "url": "https://countries.trevorblades.com/graphql"
+          }
+        },
+        {
+          "name": "02 Countries, no variables (expect 2 items)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query {\n  countries(filter: { code: { in: [\"VN\", \"JP\"] } }) {\n    code\n    name\n  }\n}",
+                "variables": ""
+              }
+            },
+            "url": "https://countries.trevorblades.com/graphql"
+          }
+        },
+        {
+          "name": "03 Invalid variables JSON (expect error in Response)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query Country($code: ID!) { country(code: $code) { name } }",
+                "variables": "{ \"code\": VN }"
+              }
+            },
+            "url": "https://countries.trevorblades.com/graphql"
+          }
+        },
+        {
+          "name": "04 Unknown field (expect server errors[])",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query {\n  country(code: \"VN\") {\n    notAField\n  }\n}",
+                "variables": ""
+              }
+            },
+            "url": "https://countries.trevorblades.com/graphql"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Binary",
+      "item": [
+        {
+          "name": "05 Text file (echo shows data)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "file",
+              "file": {
+                "src": "/path/to/Zenar/app/docs/samples/sample.txt"
+              }
+            },
+            "url": "https://httpbin.org/anything"
+          }
+        },
+        {
+          "name": "06 PNG image (echo shows base64)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "file",
+              "file": {
+                "src": "/path/to/Zenar/app/docs/samples/sample.png"
+              }
+            },
+            "url": "https://httpbin.org/anything"
+          }
+        },
+        {
+          "name": "07 PNG with own Content-Type image/png",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "image/png"
+              }
+            ],
+            "body": {
+              "mode": "file",
+              "file": {
+                "src": "/path/to/Zenar/app/docs/samples/sample.png"
+              }
+            },
+            "url": "https://httpbin.org/anything"
+          }
+        },
+        {
+          "name": "08 Missing file (expect 'cannot read file')",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "file",
+              "file": {
+                "src": "/path/to/Zenar/app/docs/samples/does-not-exist.bin"
+              }
+            },
+            "url": "https://httpbin.org/anything"
+          }
+        },
+        {
+          "name": "09 No file chosen (sends empty body)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "file",
+              "file": {}
+            },
+            "url": "https://httpbin.org/anything"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Form-data",
+      "item": [
+        {
+          "name": "10 Text + file + disabled field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "user",
+                  "value": "tung",
+                  "type": "text"
+                },
+                {
+                  "key": "skipped",
+                  "value": "should not arrive",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "src": "/path/to/Zenar/app/docs/samples/sample.png"
+                },
+                {
+                  "key": "note",
+                  "type": "file",
+                  "src": "/path/to/Zenar/app/docs/samples/sample.txt"
+                }
+              ]
+            },
+            "url": "https://httpbin.org/post"
+          }
+        }
+      ]
+    },
+    {
+      "name": "JSON",
+      "item": [
+        {
+          "name": "11 JSON object (echo json, Content-Type set)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tung\",\n  \"age\": 30,\n  \"active\": true,\n  \"tags\": [\n    \"dev\",\n    \"qa\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "https://httpbin.org/post"
+          }
+        },
+        {
+          "name": "12 Nested JSON with unicode (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"Nguyễn Văn A\",\n    \"address\": {\n      \"city\": \"Hà Nội\",\n      \"zip\": null\n    }\n  },\n  \"items\": [\n    {\n      \"sku\": \"A-1\",\n      \"qty\": 2,\n      \"price\": 19.99\n    },\n    {\n      \"sku\": \"B-2\",\n      \"qty\": 1,\n      \"price\": 5\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "https://httpbin.org/put"
+          }
+        },
+        {
+          "name": "13 JSON array at the top (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/name\",\n    \"value\": \"Zenar\"\n  },\n  {\n    \"op\": \"remove\",\n    \"path\": \"/legacy\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "https://httpbin.org/patch"
+          }
+        },
+        {
+          "name": "14 Invalid JSON (sent as-is, echo json is null)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tung\",\n  \"age\": 30,\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "https://httpbin.org/post"
+          }
+        },
+        {
+          "name": "15 Own Content-Type kept (application/vnd.api+json)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"users\",\n    \"attributes\": {\n      \"name\": \"Tung\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "https://httpbin.org/post"
+          }
+        },
+        {
+          "name": "16 JSON response (Preview + Beautify)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://httpbin.org/json"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Response views",
+      "item": [
+        {
+          "name": "17 XML response (format + Postman-style Preview)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://httpbin.org/xml"
+          }
+        },
+        {
+          "name": "18 SVG as XML (image/svg+xml)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://cdn.jsdelivr.net/npm/lucide-static@0.460.0/icons/house.svg"
+          }
+        },
+        {
+          "name": "19 HTML page (format + rendered Preview)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://httpbin.org/html"
+          }
+        },
+        {
+          "name": "20 HTML with UTF-8 text",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://httpbin.org/encoding/utf8"
+          }
+        },
+        {
+          "name": "21 Large HTML page (~540 KB, still coloured)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://github.com"
+          }
+        },
+        {
+          "name": "22 YAML (OpenAPI spec)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://petstore3.swagger.io/api/v3/openapi.yaml"
+          }
+        },
+        {
+          "name": "23 JavaScript",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://cdn.jsdelivr.net/npm/marked@18.2.0/lib/marked.umd.js"
+          }
+        },
+        {
+          "name": "24 Markdown (text/markdown, rendered Preview)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://cdn.jsdelivr.net/npm/marked@18.2.0/README.md"
+          }
+        },
+        {
+          "name": "25 Markdown sent as text/plain (pick Markdown by hand)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://raw.githubusercontent.com/github/docs/main/README.md"
+          }
+        },
+        {
+          "name": "26 Plain text",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://httpbin.org/robots.txt"
+          }
+        },
+        {
+          "name": "27 PNG image (Hex / Base64 views)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://httpbin.org/image/png"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+name: Tiny
+collection auth: None
+--- request in ""
+id: id-1
+name: Ping
+order: 1.0
+method: GET
+url: https://example.com/ping

@@ -9,13 +9,13 @@
 ![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
 ![No telemetry](https://img.shields.io/badge/telemetry-none-green)
 
-**Zenar is a free, open-source desktop API client (a Postman and Bruno alternative) that keeps your Collection in your team's Git repo. Git runs in the background: you only see Save and Conflict. Developers, QA and BAs can all use it.**
+**Zenar is a free, source-available desktop API client (a Postman and Bruno alternative) that keeps your Collection in your team's Git repo. Git runs in the background: you only see Save and Conflict. Developers, QA and BAs can all use it.**
 
 Website: [getzenar.vercel.app](https://getzenar.vercel.app)
 
 <p align="center"><img src="assets/workspace.png" alt="Zenar's main window: the Collection tree on the left, Request and Response in the middle" width="900"></p>
 
-> Free · Open source · No account. Zenar is a native desktop app (Tauri + Rust), not Electron. No sign-in, no telemetry, no server of its own. Works offline.
+> Free · Source available · No account. Zenar is a native desktop app (Tauri + Rust), not Electron. No sign-in, no telemetry, no server of its own. Works offline.
 
 Works with any Git host over HTTPS: GitHub, GitLab.com, self-hosted GitLab, Gitea, Bitbucket, Forgejo, in-house Git.
 
@@ -78,7 +78,7 @@ All four send requests. They differ in where your data lives and how a team work
 | Runs Postman `pm` scripts | Unchanged | Yes | Converted on import | Converted on import |
 | File format | YAML, one file per Request | JSON on export | `.bru` or YAML | YAML |
 | App runtime | Tauri + Rust | Electron | Electron | Electron |
-| Price | Free, open source | Limited free plan, paid per user | Open source, paid edition available | Open-source core, free plan, paid per user |
+| Price | Free, source available | Limited free plan, paid per user | Open source, paid edition available | Open-source core, free plan, paid per user |
 
 Based on Postman's, Bruno's and Insomnia's public documentation at the time of writing (Nov 2026). Their features and pricing may have changed since. Corrections welcome: open an issue.
 
@@ -155,6 +155,29 @@ AppImage updates itself; `.deb` and `.rpm` open the download page when a new ver
 
 Self-updating builds verify a signature before they install and relaunch. A signature mismatch is never installed.
 
+## Build from source
+
+This repo holds Zenar's source as of version **0.1.0**. It is not updated with every release. For the latest version, download an official build above.
+
+A build you make yourself **has no automatic Update**: the update code is not in this source. To get a newer version, download an official build.
+
+You need [Rust](https://rustup.rs) (stable), Node.js 22, [pnpm](https://pnpm.io) 10, and the [Tauri prerequisites](https://v2.tauri.app/start/prerequisites/) for your OS (on Linux: WebKitGTK 4.1 and its dev packages).
+
+```sh
+git clone https://github.com/tungg-it/Zenar.git
+cd Zenar/app
+pnpm install
+pnpm tauri dev      # run in development mode
+pnpm tauri build    # build an installer into target/release/bundle/
+cargo test --workspace
+```
+
+## License
+
+Zenar is **source available, not open source**. Under the [Zenar Source-Available License](LICENSE) you may read, build, run and modify it for yourself or inside your organization. You may **not** redistribute it in any form (source or builds, original or modified), sell it, or offer it to others as a service. The Zenar name and logo may not be used for any other software.
+
+**Contributions:** this repo does not accept pull requests. Report bugs and request features in [Issues](https://github.com/tungg-it/Zenar/issues).
+
 ## FAQ
 
 **Can I use it without knowing Git?** Yes. You only see Save, and the Needs Attention list when there's a Conflict. Someone needs to install Git and sign in to the host once on your machine.
@@ -175,7 +198,7 @@ Self-updating builds verify a signature before they install and relaunch. A sign
 
 The file is plain text (on macOS and Linux only your user can read it) and never enters the repo.
 
-**Does Zenar cost anything?** No. Zenar is free and open source. Its only infrastructure cost is hosting the update files.
+**Does Zenar cost anything?** No. Zenar is free, and its source is available to read and build. Its only infrastructure cost is hosting the update files.
 
 ---
 

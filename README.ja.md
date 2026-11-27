@@ -9,13 +9,13 @@
 ![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
 ![No telemetry](https://img.shields.io/badge/telemetry-none-green)
 
-**Zenar は無料・オープンソースのデスクトップ API クライアント（Postman・Bruno の代替）で、Collection をチームの Git リポジトリに保存します。Git は裏で動き、表示されるのは Save と Conflict だけ。開発者も QA も BA も使えます。**
+**Zenar は無料・ソース公開のデスクトップ API クライアント（Postman・Bruno の代替）で、Collection をチームの Git リポジトリに保存します。Git は裏で動き、表示されるのは Save と Conflict だけ。開発者も QA も BA も使えます。**
 
 Web サイト：[getzenar.vercel.app](https://getzenar.vercel.app)
 
 <p align="center"><img src="assets/workspace.png" alt="Zenar のメインウィンドウ：左に Collection ツリー、中央に Request と Response" width="900"></p>
 
-> 無料 · オープンソース · アカウント不要。Zenar はネイティブのデスクトップアプリ（Tauri + Rust）で、Electron ではありません。サインインなし、テレメトリなし、独自サーバーなし。オフラインで動作します。
+> 無料 · ソース公開 · アカウント不要。Zenar はネイティブのデスクトップアプリ（Tauri + Rust）で、Electron ではありません。サインインなし、テレメトリなし、独自サーバーなし。オフラインで動作します。
 
 HTTPS で使えるあらゆる Git ホストに対応：GitHub、GitLab.com、セルフホスト GitLab、Gitea、Bitbucket、Forgejo、社内 Git。
 
@@ -78,7 +78,7 @@ HTTPS で使えるあらゆる Git ホストに対応：GitHub、GitLab.com、�
 | Postman の `pm` スクリプトを実行 | そのまま | はい | インポート時に変換 | インポート時に変換 |
 | ファイル形式 | YAML、Request ごとに 1 ファイル | エクスポート時に JSON | `.bru` または YAML | YAML |
 | アプリのランタイム | Tauri + Rust | Electron | Electron | Electron |
-| 価格 | 無料、オープンソース | 制限付きの無料プラン、ユーザー単位の有料 | オープンソース、有料版あり | オープンソースのコア、無料プラン、ユーザー単位の有料 |
+| 価格 | 無料、ソース公開 | 制限付きの無料プラン、ユーザー単位の有料 | オープンソース、有料版あり | オープンソースのコア、無料プラン、ユーザー単位の有料 |
 
 執筆時点（2026 年 11 月）の Postman、Bruno、Insomnia の公開ドキュメントに基づいています。機能や価格はその後変わっている可能性があります。訂正は issue でお知らせください。
 
@@ -155,6 +155,29 @@ AppImage は自動でアップデートされます。`.deb` と `.rpm` は新�
 
 自動アップデートするビルドは、インストールと再起動の前に署名を検証します。署名が一致しないものは決してインストールされません。
 
+## ソースからビルド
+
+このリポジトリには Zenar バージョン **0.1.0** 時点のソースが入っており、リリースごとには更新されません。最新版は上の公式ビルドをダウンロードしてください。
+
+自分でビルドしたアプリには**自動アップデートがありません**。このソースにはアップデートのコードが含まれていないためです。新しいバージョンは公式ビルドをダウンロードしてください。
+
+[Rust](https://rustup.rs)（stable）、Node.js 22、[pnpm](https://pnpm.io) 10、そしてお使いの OS 用の [Tauri の前提条件](https://v2.tauri.app/start/prerequisites/)（Linux：WebKitGTK 4.1 とその開発パッケージ）が必要です。
+
+```sh
+git clone https://github.com/tungg-it/Zenar.git
+cd Zenar/app
+pnpm install
+pnpm tauri dev      # 開発モードで実行
+pnpm tauri build    # インストーラーを target/release/bundle/ にビルド
+cargo test --workspace
+```
+
+## ライセンス
+
+Zenar は**ソース公開ですが、オープンソースではありません**。[Zenar Source-Available License](LICENSE) のもとで、自分自身または所属組織の内部で、閲覧・ビルド・実行・改変ができます。いかなる形でも再配布（ソースでもビルドでも、オリジナルでも改変版でも）、販売、他者へのサービスとしての提供は**できません**。Zenar の名前とロゴを他のソフトウェアに使うことはできません。
+
+**コントリビューション：** このリポジトリはプルリクエストを受け付けていません。バグ報告や機能要望は [Issues](https://github.com/tungg-it/Zenar/issues) へどうぞ。
+
 ## よくある質問
 
 **Git を知らなくても使えますか？** はい。表示されるのは Save と、Conflict があるときの Needs Attention リストだけです。誰かがマシンに Git をインストールし、ホストに一度サインインする必要があります。
@@ -175,7 +198,7 @@ AppImage は自動でアップデートされます。`.deb` と `.rpm` は新�
 
 ファイルはプレーンテキストで（macOS と Linux では自分のユーザーだけが読めます）、リポジトリには決して入りません。
 
-**Zenar は有料ですか？** いいえ。Zenar は無料でオープンソースです。唯一のインフラ費用はアップデートファイルのホスティングです。
+**Zenar は有料ですか？** いいえ。Zenar は無料で、ソースは閲覧と自分でのビルドのために公開されています。唯一のインフラ費用はアップデートファイルのホスティングです。
 
 ---
 

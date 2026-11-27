@@ -1,0 +1,8 @@
+[workspace]
+resolver = "2"
+members = ["crates/zenar-format", "crates/zenar-git", "crates/zenar-http", "crates/zenar-merge", "crates/zenar-service", "crates/zenar-store", "src-tauri"]
+
+[workspace.package]
+edition = "2021"
+version = "0.1.0"
+authors = ["Tung IT <tung.webdeveloper@gmail.com>"]

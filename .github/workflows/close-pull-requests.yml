@@ -1,0 +1,15 @@
+# This repo does not accept code contributions (see LICENSE, section 5).
+name: Close pull requests
+on:
+  pull_request_target:
+    types: [opened, reopened]
+permissions:
+  pull-requests: write
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr close ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --comment "Thanks for your interest. This repository does not accept pull requests. Please open an issue to report a bug or request a feature: https://github.com/${{ github.repository }}/issues/new/choose"

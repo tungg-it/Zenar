@@ -1,0 +1,59 @@
+Zenar Source-Available License 1.0
+
+Copyright (c) 2026 Tung IT <tung.webdeveloper@gmail.com>. All rights reserved.
+
+This license covers the source code and other files in this repository (the
+"Software"). By using the Software you agree to these terms.
+
+1. Permitted use
+
+   You may, free of charge:
+   a. read and download the Software;
+   b. build and run the Software on your own devices, for yourself or for use
+      inside your own organization (its employees and contractors acting on
+      its behalf);
+   c. modify the Software for the uses in (b).
+
+2. Restrictions
+
+   You may not, without prior written permission from the copyright holder:
+   a. distribute, publish, share or otherwise make available the Software or
+      any modified version of it, in source or compiled form, in whole or in
+      part, other than as described in section 3;
+   b. sell, rent, lease or sublicense the Software, or any build of it;
+   c. offer the Software, or any modified version of it, to third parties as
+      a hosted or managed service;
+   d. remove or change this license or any copyright notice.
+
+3. Forks on GitHub
+
+   Forking this repository on GitHub, to the extent GitHub's Terms of Service
+   allow it, is permitted. A fork stays under this license: it may not be
+   used to distribute builds or modified versions to others.
+
+4. Name and logo
+
+   This license grants no rights to the name "Zenar" or its logo. You may not
+   use them to name, brand or promote any other software, including a
+   modified version of the Software.
+
+5. Contributions
+
+   This repository does not accept code contributions. Pull requests are
+   closed without review.
+
+6. No warranty
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+   IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+
+7. Termination
+
+   If you break any of these terms, your rights under this license end
+   automatically, and you must stop using and delete every copy of the
+   Software you hold.

@@ -1,0 +1,10 @@
+[package]
+name = "zenar-merge"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+zenar-format = { path = "../zenar-format" }
+
+[dev-dependencies]
+proptest = "1"

@@ -1,0 +1,76 @@
+{
+  "info": {
+    "name": "Pet Store",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+  "item": [
+    {
+      "name": "List pets",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "X-Debug", "value": "1", "disabled": true }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/pets?limit=10&offset=",
+          "host": ["{{baseUrl}}"],
+          "path": ["pets"],
+          "query": [
+            { "key": "limit", "value": "10" },
+            { "key": "offset", "value": "", "disabled": true }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Admin",
+      "auth": { "type": "basic", "basic": [{ "key": "username", "value": "root" }, { "key": "password", "value": "pw" }] },
+      "item": [
+        {
+          "name": "Create pet",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Rex\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/pets"
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "auth": { "type": "noauth" },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "user", "value": "a b" },
+                { "key": "skip", "value": "x", "disabled": true }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/login" }
+          }
+        },
+        {
+          "name": "Nested",
+          "item": [
+            {
+              "name": "Upload",
+              "request": {
+                "method": "PUT",
+                "auth": { "type": "apikey", "apikey": [{ "key": "key", "value": "X-Key" }, { "key": "value", "value": "abc" }, { "key": "in", "value": "query" }] },
+                "body": { "mode": "formdata", "formdata": [{ "key": "f", "type": "file" }] },
+                "url": "{{baseUrl}}/upload"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "List pets",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/pets" }
+    }
+  ]
+}

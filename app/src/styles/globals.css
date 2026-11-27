@@ -1,0 +1,128 @@
+/* Tailwind setup plus the few rules that have to be plain CSS (global elements, scrollbars, states set on
+   <body> from script). Everything else is Tailwind classes in the components.
+   Colours come only from the --z-* variables set by libs/theme.ts (one palette per light/dark mode);
+   never hard-code a hex value here or in a class. */
+
+/* Ant Design's styles go in `antd` (AntdProvider: StyleProvider layer), under Tailwind's utilities, so a
+   utility class on an Ant component wins. No preflight: Ant and the browser defaults stay as they were. */
+@layer theme, base, antd, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source("../");
+
+/* Only the palette: Tailwind's own colours are removed so a class can't hard-code one. */
+@theme {
+  --color-*: initial;
+  --text-*: initial;
+  --text-2xs: 10px;
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-code: 12.5px;
+  --text-base: 13px;
+  --text-md: 14px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+}
+@theme inline {
+  --color-z-bg: var(--z-bg);
+  --color-z-sidebar: var(--z-bg-sidebar);
+  --color-z-header: var(--z-bg-header);
+  --color-z-elevated: var(--z-bg-elevated);
+  --color-z-code: var(--z-bg-code);
+  --color-z-hover: var(--z-hover);
+  --color-z-active: var(--z-active);
+  --color-z-border: var(--z-border);
+  --color-z-border-strong: var(--z-border-strong);
+  --color-z-text: var(--z-text);
+  --color-z-muted: var(--z-text-muted);
+  --color-z-faint: var(--z-text-faint);
+  --color-z-primary: var(--z-primary);
+  --color-z-link: var(--z-link);
+  --color-z-dirty: var(--z-dirty);
+  --color-z-get: var(--z-method-get);
+  --color-z-post: var(--z-method-post);
+  --color-z-put: var(--z-method-put);
+  --color-z-patch: var(--z-method-patch);
+  --color-z-delete: var(--z-method-delete);
+  --color-z-other: var(--z-method-other);
+  --color-z-graphql: var(--z-graphql);
+  --color-z-code-key: var(--z-code-key);
+  --color-z-code-string: var(--z-code-string);
+  --color-z-code-number: var(--z-code-number);
+  --color-z-code-bool: var(--z-code-bool);
+  --color-z-code-tag: var(--z-code-tag);
+  --color-z-code-attr: var(--z-code-attr);
+  --color-z-code-comment: var(--z-code-comment);
+  --color-z-search-hit: var(--z-search-hit);
+  --color-z-close-hover: var(--z-close-hover);
+  --color-z-on-close-hover: var(--z-on-close-hover);
+  /* Theme preview cards (ThemeSettings): the other mode's colours, from libs/theme previewVars. */
+  --color-p-bg: var(--p-bg);
+  --color-p-sidebar: var(--p-sidebar);
+  --color-p-header: var(--p-header);
+  --color-p-border: var(--p-border);
+  --color-p-text: var(--p-text);
+  --color-p-primary: var(--p-primary);
+  --font-sans: var(--z-font);
+  --font-mono: var(--z-mono);
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  html, body, #root { height: 100%; }
+  /* The window itself never scrolls, like a desktop app: only the panes inside it do (their own overflow).
+     Something a pixel too wide or tall (a popup's measuring node, a zoomed layout) no longer adds a window scrollbar. */
+  html, body { overflow: hidden; }
+  body {
+    margin: 0;
+    font-family: var(--z-font);
+    font-size: 13px;
+    background: var(--z-bg);
+    color: var(--z-text);
+    -webkit-font-smoothing: antialiased;
+    /* Desktop app: interface text is not selectable. Inputs and content people copy opt back in
+       (`select-text` on the element; the macOS webview needs the -webkit- prefix, which it includes). */
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  input, textarea, [contenteditable="true"] { -webkit-user-select: text; user-select: text; }
+
+  /* macOS overlay scrollbars flash on every scroll area whose size changes (e.g. toggling a sidebar) and hide
+     otherwise. Styled scrollbars don't: the thumb is always shown where there is more to scroll (so a long
+     Request or Response says so), darker while the pointer is over the scroll area. */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
+  ::-webkit-scrollbar-thumb { border: 2px solid transparent; border-radius: 5px; background-clip: padding-box; background-color: color-mix(in srgb, var(--z-text-faint) 35%, transparent); }
+  :hover::-webkit-scrollbar-thumb { background-color: color-mix(in srgb, var(--z-text-faint) 60%, transparent); }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--z-text-faint); }
+
+  /* Set on <body> by ResizeHandle while dragging: the resize cursor everywhere, no text selection. */
+  body.is-resizing-x, body.is-resizing-x * { cursor: col-resize !important; -webkit-user-select: none; user-select: none; }
+  body.is-resizing-y, body.is-resizing-y * { cursor: row-resize !important; -webkit-user-select: none; user-select: none; }
+
+  /* Transitions only: `animation: none` would also freeze every loading spinner (Ant's and `animate-spin`), and a spinner that
+     does not spin looks like a hung app. */
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+}
+
+/* Over Ant's own focus styles, like before Ant had a layer. Text fields are left out: Ant (and the editors built on it) already draw
+   their own focus border, and a second blue ring around them is the browser-looking default we do not want. */
+@layer components {
+  :focus-visible:not(input, textarea, select) { outline: 2px solid var(--z-primary); outline-offset: 1px; }
+
+  /* Toasts (Ant `message`, from App.useApp) sit at the bottom right, just above the 28px status bar, instead of Ant's top
+     centre: Ant v6 hard-codes `placement: 'top'` for `message`. Its list is a full-width fixed column whose notices are
+     placed by script (`top: var(--notification-y)`); the list content goes to the bottom of the column and each notice to
+     its right edge, sliding in from the right instead of down from the top. These rules are in a layer above Ant's. */
+  .ant-message.ant-message-top { top: 0; bottom: 28px; height: auto; left: 0; right: auto; transform: none; justify-content: flex-end; }
+  .ant-message-top .ant-message-notice { left: auto; right: 0; transform: translate3d(0, 0, 0) scale(var(--notification-scale, 1)); }
+  .ant-message-top .ant-message-notice.ant-message-fade-appear-prepare,
+  .ant-message-top .ant-message-notice.ant-message-fade-enter-prepare,
+  .ant-message-top .ant-message-notice.ant-message-fade-appear-start,
+  .ant-message-top .ant-message-notice.ant-message-fade-enter-start,
+  .ant-message-top .ant-message-notice.ant-message-fade-leave-active { transform: translate3d(24px, 0, 0) scale(var(--notification-scale, 1)); }
+  .ant-message-top .ant-message-notice.ant-message-fade-appear-active,
+  .ant-message-top .ant-message-notice.ant-message-fade-enter-active,
+  .ant-message-top .ant-message-notice.ant-message-fade-leave-start { transform: translate3d(0, 0, 0) scale(var(--notification-scale, 1)); }
+}
