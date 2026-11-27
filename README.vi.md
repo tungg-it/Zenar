@@ -1,84 +1,171 @@
-# Zenar: ứng dụng gọi API lưu bằng Git, thay thế Postman và Bruno
+<p align="center"><img src="assets/logo.png" alt="Zenar" width="96"></p>
+
+# Zenar: gọi API cùng cả team, lưu thẳng vào Git
 
 [English](README.md) · **Tiếng Việt** · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
-**Zenar là ứng dụng desktop miễn phí, gọn nhẹ để gọi API (thay thế Postman, Bruno). Zenar lưu Collection trong một repo Git thường và tự gộp thay đổi của đồng đội, nên cả người không rành Git vẫn cộng tác được qua Git.**
+[![Version](https://img.shields.io/badge/version-0.1.0-blue)](https://zenar.tungit.io.vn/index.html)
+[![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)](#tải-và-cài-đặt)
+![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
+![No telemetry](https://img.shields.io/badge/telemetry-none-green)
 
-Gửi request REST và GraphQL, chia sẻ một Collection cho cả đội qua GitHub hoặc GitLab (kể cả tự host) mà không bao giờ thấy dấu xung đột merge. Git chạy ngầm; bạn chỉ thấy **Lưu** và **Xung đột**.
+**Zenar là app desktop gọi API miễn phí, mã nguồn mở (thay thế Postman, Bruno), lưu Collection trong repo Git của team. Git chạy ngầm: bạn chỉ thấy Save và Conflict. Dev, QA hay BA đều dùng được.**
 
-> Zenar là app desktop native (Tauri + Rust), không phải Electron. Không cần tài khoản, không có workspace trên cloud, không telemetry. Chạy được offline.
+Website: [getzenar.vercel.app](https://getzenar.vercel.app)
+
+<p align="center"><img src="assets/workspace.png" alt="Màn hình chính của Zenar: cây Collection bên trái, Request và Response ở giữa" width="900"></p>
+
+> Miễn phí · Mã nguồn mở · Không cần tài khoản. Zenar là app desktop native (Tauri + Rust), không phải Electron. Không đăng nhập, không telemetry, không có server riêng. Chạy được offline.
+
+Chạy với mọi host Git qua HTTPS: GitHub, GitLab.com, GitLab tự host, Gitea, Bitbucket, Forgejo, repo Git nội bộ.
 
 Từ khoá: API client, REST client, GraphQL client, thay thế Postman, thay thế Bruno, test API offline, collection API lưu bằng Git, công cụ test API cho đội nhóm.
 
 ## Vì sao chọn Zenar
 
-- **Git là lớp đồng bộ.** Một Collection là một repo Git. Mỗi Request là một file YAML riêng nên diff và pull request dễ đọc.
-- **Xung đột do app tự xử lý.** Zenar gộp theo từng Field (method, URL, từng header, từng query param, auth, body, script) chứ không theo dòng văn bản. Hai người sửa hai header khác nhau của cùng một request sẽ không xung đột, và bạn không bao giờ thấy `<<<<<<<`. Không bao giờ force push.
-- **Dành cho người không rành Git.** Clone, commit, pull, push được ẩn sau nút Lưu và màn hình xung đột.
-- **Secret ở lại trên máy bạn.** Giá trị Secret nằm trong một file trong thư mục dữ liệu của Zenar trên máy bạn, không vào repo. Đồng đội chỉ thấy tên biến và tự điền giá trị của mình.
-- **Nhập collection từ Postman.** Script viết cho `pm.*` vẫn chạy (API riêng của Zenar là `zn.*`).
-- **Không có server của chúng tôi.** App chỉ nói chuyện với host Git và API của bạn. Lời gọi mạng riêng duy nhất là kiểm tra cập nhật.
-- **Nhẹ và nhanh.** Lõi Rust, giao diện sáng/tối.
+Collection của team nên nằm cạnh code, không nằm trên cloud của ai khác. Postman giữ Collection trên cloud của họ. Bruno lưu thành file nhưng để bạn tự commit, push, sửa conflict. Zenar lưu vào repo Git và tự lo phần Git.
+
+- **Postman: dữ liệu ở cloud, cộng tác theo gói.** Phải đăng nhập, Collection và Environment đồng bộ qua máy chủ Postman. Nhiều tính năng làm việc nhóm nằm trong gói trả phí.
+- **Bruno: file trong Git, nhưng Git là việc của bạn.** Muốn chia sẻ phải commit, push, pull. Hai người sửa cùng file thì gặp conflict marker trong text, khó với QA và BA.
+- **Zenar: bấm Save là chia sẻ.** Mỗi Request là một file YAML trong repo của team. Zenar tự commit, push, lấy thay đổi về và gộp theo từng Field. Chỉ hỏi bạn khi hai người sửa cùng một chỗ.
+
+## Tính năng
+
+Đủ để thay Postman cho việc hằng ngày: gửi request, xem response, viết script, đổi Environment. Thêm phần cộng tác mà không cần ai biết Git.
+
+<p align="center"><img src="assets/request.png" alt="Request có script chạy sau response, dùng zn và pm" width="900"></p>
+
+- **Save là chia sẻ, không có bước đồng bộ.** Không có nút Commit, Push hay Sync. Thay đổi của người khác được lấy về ngầm. Mất mạng thì Save được xếp hàng và tự đẩy lên khi có mạng lại.
+- **Gộp theo Field.** Zenar so sánh từng Field: method, URL, từng header, param, auth, body, script. Hai người sửa hai header khác nhau thì tự gộp. Cùng sửa một Field thì Request vào danh sách **Needs Attention**, bạn chọn giữ bản nào. Bạn không bao giờ thấy `<<<<<<<`, và Zenar không bao giờ force push.
+- **Token chỉ nằm trên máy bạn.** Biến Secret chỉ có tên trong repo, giá trị lưu trên từng máy. Member khác tự điền, hoặc nhận qua file export của Environment.
+- **Script dùng lại được từ Postman.** JavaScript chạy trước khi gửi và sau khi có response, với API `zn`. Script import từ Postman dùng `pm` vẫn chạy nguyên.
+- **Chuyển từ Postman trong một bước.** Import Collection v2.1 và file Environment (từ Postman hoặc `.env`). Cảnh báo khi token bị gắn cứng trong header hay body, trước khi nó vào repo.
+- **REST, GraphQL, form-data, binary.** Editor GraphQL có gợi ý biến. Body JSON, form, file nhị phân.
+- **Xem response tử tế.** Format và tô màu JSON, XML, HTML, YAML, Markdown. Xem trước HTML.
+- **Environment dùng chung.** dev, staging, prod cho cả Collection. Mỗi người tự chọn Environment của mình.
+- **Captured Variable.** Lấy token từ response login, dùng cho request sau. Chỉ sống trên máy bạn.
+- **Chạy offline.** Repo clone về máy. Không mạng vẫn gọi API nội bộ, vẫn Save.
+- **Viewer chỉ đọc.** Ai chỉ có quyền đọc repo thì chạy request được, không Save được.
+- **Lịch sử request.** Mỗi lần gửi đều được ghi lại, mở lại để xem response cũ.
+- **Dán lệnh cURL.** Dán lệnh cURL vào thanh URL là thành Request, đủ header, body và auth.
+- **Nhẹ, khởi động nhanh.** Lõi Rust trên Tauri, không phải Electron. Giao diện sáng/tối. Tự cập nhật, có chữ ký số.
+
+<p align="center"><img src="assets/import.png" alt="Menu Import của Zenar: Collection từ Postman hoặc Environment từ Postman, .env" width="900"></p>
+
+## Cách hoạt động
+
+Từ repo trống đến cả team dùng chung trong 3 phút:
+
+1. **Tạo repo trống** trên GitHub, GitLab (cả GitLab tự host), Gitea hay Bitbucket. Ai có quyền repo là Member.
+2. **Dán URL HTTPS vào Zenar.** Zenar dùng Git và credential helper có sẵn trên máy, nên proxy và chứng chỉ của công ty vẫn có hiệu lực.
+3. **Import từ Postman hoặc tạo Request mới.** Mỗi Request thành một file YAML dễ đọc (ví dụ `orders/create-order.yaml`), review được ngay trên trang web của host Git, trong Merge Request.
+4. **Bấm Save.** Member nhận được thay đổi trong vài giây. Không cần biết commit hay push là gì.
 
 ## Zenar so với Postman và Bruno
 
-|  | **Zenar** | **Postman** | **Bruno** |
-| --- | --- | --- | --- |
-| Collection nằm ở đâu | Repo Git của bạn, mỗi request một file YAML | Workspace trên cloud của Postman (có thể export) | Thư mục file `.bru`, thường commit vào Git |
-| Cần tài khoản | Không | Có (đa số tính năng cần đăng nhập) | Không |
-| Dùng hoàn toàn offline | Có | Hạn chế (chế độ Scratch Pad) | Có |
-| Cộng tác nhóm | Qua mọi host Git bằng HTTPS (GitHub, GitLab, tự host) | Cloud của Postman, gói tính theo người dùng | Qua Git, bạn tự dùng công cụ Git |
-| App tự lo Git | **Có**: Lưu, pull, push tự động, Git bị ẩn | Một phần, tuỳ gói | Không, bạn tự chạy Git |
-| Xử lý xung đột | **Tự gộp theo Field**, chỉ hỏi khi thật sự trùng | Versioning và fork trên cloud | Merge văn bản thông thường của Git |
-| Secret | File trên máy bạn, không vào repo | Lưu trong tài khoản Postman | Giữ ngoài Git theo quy ước (file secret và `.env`) |
-| Nhập collection Postman | Có, script `pm.*` vẫn chạy | Gốc | Có |
-| Telemetry | Không | Dịch vụ cloud gắn tài khoản | Có thể tắt |
-| Nền tảng app | Native (Tauri + Rust) | Electron | Electron |
-| Giá | Miễn phí | Có gói miễn phí, gói nhóm tính phí | Miễn phí, bản Golden Edition tính phí |
+Ba công cụ đều gửi được request. Khác nhau ở chỗ dữ liệu nằm đâu và cả team làm việc chung ra sao.
 
-Thông tin về đối thủ tóm tắt từ tài liệu công khai của họ và có thể thay đổi. Hãy xem trang chủ của từng hãng trước khi quyết định. Cần sửa gì, xin mở issue.
+| Tiêu chí | **Zenar** | **Postman** | **Bruno** |
+| --- | --- | --- | --- |
+| Nơi lưu Collection | Repo Git của team | Cloud của Postman | File trên máy |
+| Cần tài khoản | Không | Có | Không |
+| Cách chia sẻ | Bấm Save, Git chạy ngầm | Workspace trên cloud | Tự commit, push, pull |
+| Khi hai người sửa cùng Request | Tự gộp theo Field, chỉ hỏi khi trùng Field | Đồng bộ qua cloud, fork và merge Collection | Conflict marker của Git trong file text |
+| Người không rành Git dùng được | Có | Có | Khó |
+| Dữ liệu không qua bên thứ ba | Có | Không | Có |
+| GitLab tự host trong mạng nội bộ | Có | Không | Có, tự quản lý Git |
+| Secret không vào repo | Mặc định | Current value, Vault | Tự lo `.env`, `.gitignore` |
+| Chạy script `pm` của Postman | Chạy nguyên | Có | Chuyển đổi khi import |
+| Định dạng file | YAML, mỗi Request một file | JSON khi export | `.bru` hoặc YAML |
+| Nền tảng app | Tauri + Rust | Electron | Electron |
+| Giá | Miễn phí, mã nguồn mở | Gói free có giới hạn, trả phí theo người | Mã nguồn mở, có bản trả phí |
+
+So sánh dựa trên tài liệu công khai của Postman và Bruno tại thời điểm viết (11/2026). Tính năng và giá của họ có thể đã thay đổi. Cần sửa gì, xin mở issue.
+
+## Nguyên tắc: những gì Zenar không làm
+
+- **Không có server.** Không đăng nhập, không telemetry, không backend của riêng app. Thứ duy nhất Zenar tải từ tên miền của mình là bản cập nhật đã ký.
+- **Không giữ token của bạn.** Mọi thao tác Git chạy qua lệnh `git` của máy. Zenar không gọi API của host, không cần quyền vào repo khác.
+- **Không merge text.** Không bao giờ để file YAML hợp lệ nhưng sai nghĩa, ví dụ hai header `Authorization`. Gộp theo mô hình, không theo dòng.
 
 ## Tải và cài đặt
 
 **Phiên bản mới nhất: 0.1.0**
 
-| Hệ điều hành | File cần tải | Cách cài |
-| --- | --- | --- |
-| **macOS** (Apple Silicon và Intel) | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) | Mở `.dmg`, kéo **Zenar** vào **Applications**. Nếu macOS báo app từ nhà phát triển không xác định, bấm chuột phải vào app, chọn **Open**, rồi **Open** lần nữa. Hoặc chạy `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
-| **Windows** 10 / 11 (x64) | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) | Chạy bộ cài. Bản build chưa được ký số nên SmartScreen có thể cảnh báo: bấm **More info**, rồi **Run anyway**. Trên Windows 11 đang bật **Smart App Control**, bộ cài bị chặn hẳn (không có nút Run anyway): tắt Smart App Control trong **Windows Security → App & browser control → Smart App Control settings**, rồi chạy lại. Trên một số bản Windows, đã tắt Smart App Control thì không bật lại được nếu không cài lại Windows, nên hãy cân nhắc trước, hoặc chờ bản đã ký số. Hỗ trợ Windows còn đang thử nghiệm. |
-| **Linux**: mọi bản phân phối | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`. Bản này tự cập nhật. |
-| **Linux**: Debian / Ubuntu | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
-| **Linux**: Fedora / RHEL / openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
+Cần **Git trên máy và đã đăng nhập host Git** (ví dụ qua Git Credential Manager). Zenar kiểm tra và hướng dẫn nếu còn thiếu. Linux cần thêm WebKitGTK 4.1 (`libwebkit2gtk-4.1`).
 
-Yêu cầu: **phải cài Git** (Zenar dùng lệnh `git` và credential helper của hệ thống). Linux cần thêm WebKitGTK 4.1 (`libwebkit2gtk-4.1`).
+| Hệ điều hành | File cần tải |
+| --- | --- |
+| **macOS**: bản universal, chạy trên Apple Silicon và Intel | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) |
+| **Windows**: bộ cài cho Windows 64-bit | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) |
+| **Linux**: AppImage, chạy trên hầu hết bản phân phối, tự cập nhật | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
+| **Linux**: `.deb` cho Ubuntu, Debian và các bản dựa trên Debian | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
+| **Linux**: `.rpm` cho Fedora, RHEL, openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
 
-**Cập nhật.** App macOS và AppImage trên Linux tự kiểm tra bản mới, xác minh chữ ký rồi cài và mở lại. Chữ ký sai sẽ không bao giờ được cài. Với `.deb`, `.rpm` và bộ cài Windows, bạn tải file mới về tay.
+### macOS
 
-## Bắt đầu nhanh
+1. Mở file **.dmg**, kéo **Zenar** vào **Applications**.
+2. Nếu macOS chặn app vì chưa xác minh được nhà phát triển: vào **System Settings → Privacy & Security**, bấm **Open Anyway**. Với macOS 14 trở xuống: bấm chuột phải vào app, chọn **Open**, rồi **Open** lần nữa.
 
-1. Mở Zenar và đăng nhập Git bằng thông tin xác thực Git quen thuộc (HTTPS).
-2. **Mở một Collection** từ URL repo Git, hoặc tạo mới. Zenar clone về máy bạn.
-3. Tạo request và folder, chọn **Environment** (dev, staging, ...), rồi bấm **Send**.
-4. Bấm **Lưu**. Đồng đội nhận thay đổi ở lần đồng bộ tiếp theo. Nếu hai người sửa cùng một Field, Zenar sẽ hỏi giữ bản nào.
+Hoặc chạy lệnh này trong Terminal:
 
-## Tính năng
+```sh
+xattr -dr com.apple.quarantine /Applications/Zenar.app
+```
 
-- Request REST: method, query param, header, auth, body JSON / form-data / urlencoded / raw / binary
-- GraphQL có biến
-- Folder, folder lồng nhau, kéo thả
-- Environment, Secret và Captured Variable
-- Script JavaScript trước khi gửi và sau khi có response (`zn.*`, tương thích `pm.*`)
-- Nhập collection Postman
-- Gộp 3 bản theo Field, màn hình xung đột, không force push
-- Giao diện sáng/tối, bản native cho macOS, Windows, Linux, tự cập nhật có chữ ký
+App tự cập nhật.
+
+### Windows
+
+1. Chạy bộ cài. Bản build chưa được ký số nên SmartScreen có thể cảnh báo: bấm **More info**, rồi **Run anyway**.
+2. Windows 11 đang bật **Smart App Control** sẽ chặn hẳn bộ cài (không có Run anyway). Tắt tại **Windows Security → App & browser control → Smart App Control settings**, rồi chạy lại.
+
+> [!WARNING]
+> Trên một số phiên bản Windows, đã tắt Smart App Control thì không bật lại được nếu không cài lại Windows. Hãy cân nhắc trước, hoặc chờ bản được ký số.
+
+Hỗ trợ Windows đang ở giai đoạn thử nghiệm. Bản mới tải lại tại trang này.
+
+### Linux
+
+Mọi bản phân phối (AppImage, tự cập nhật). Chạy trong thư mục chứa file vừa tải:
+
+```sh
+chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage
+```
+
+Debian / Ubuntu:
+
+```sh
+sudo apt install ./Zenar_0.1.0_amd64.deb
+```
+
+Fedora / RHEL:
+
+```sh
+sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm
+```
+
+openSUSE:
+
+```sh
+sudo zypper install ./Zenar-0.1.0-1.x86_64.rpm
+```
+
+AppImage tự cập nhật; `.deb` và `.rpm` mở trang tải về khi có bản mới.
+
+Các bản tự cập nhật đều xác minh chữ ký trước khi cài và mở lại. Chữ ký sai sẽ không bao giờ được cài.
 
 ## Câu hỏi thường gặp
 
-**Zenar có phải bản thay thế Postman không?** Có. Zenar là app desktop miễn phí để gửi request HTTP, REST và GraphQL, và nhập được collection Postman.
+**Tôi không biết Git thì có dùng được không?** Được. Bạn chỉ thấy nút Save và danh sách Needs Attention khi có Conflict. Cần một người cài Git và đăng nhập host một lần trên máy bạn.
 
-**Zenar khác Bruno thế nào?** Cả hai đều lưu collection thành file để đưa vào Git. Với Bruno bạn tự chạy Git. Zenar chạy Git giúp bạn và gộp các sửa đổi trùng nhau theo từng Field, phù hợp với đội có tester, PM hay CSKH không dùng Git.
+**Zenar có lưu dữ liệu của tôi ở đâu khác không?** Không. Collection nằm trong repo của bạn, Secret và Draft nằm trên máy bạn. Zenar không có server, không gửi telemetry.
 
-**Zenar có cần tài khoản hay server không?** Không. Zenar làm việc với host Git bạn đang dùng, kể cả GitLab tự host, và không có telemetry.
+**Chuyển từ Postman có mất script không?** Không. Import Collection v2.1 và Environment. Script dùng `pm` chạy nguyên, bạn có thể đổi dần sang `zn`.
+
+**Hai người cùng sửa một Request thì sao?** Sửa khác Field thì Zenar tự gộp. Cùng sửa một Field thì Request vào Needs Attention: bạn chọn Overwrite (giữ bản của mình cho Field đó) hoặc giữ thay đổi của mình làm Draft.
+
+**Dùng với GitLab tự host trong mạng công ty được không?** Được. Zenar chạy lệnh `git` của máy, nên dùng đúng proxy, chứng chỉ CA và credential mà máy đang dùng.
 
 **Secret được lưu ở đâu?** Trong file `secrets.json` ở thư mục dữ liệu của Zenar, chỉ trên máy bạn:
 
@@ -88,4 +175,10 @@ Yêu cầu: **phải cài Git** (Zenar dùng lệnh `git` và credential helper 
 
 File ở dạng văn bản thường (trên macOS và Linux chỉ tài khoản của bạn đọc được) và không bao giờ vào repo.
 
-**Có chạy offline được không?** Có. Collection là bản clone trên máy. Đồng bộ khi có mạng lại.
+**Zenar có thu phí không?** Không. Zenar miễn phí và mã nguồn mở. Chi phí hạ tầng duy nhất là nơi chứa file cập nhật.
+
+---
+
+**Đưa Collection của team về repo Git hôm nay.** Tải Zenar, dán URL repo, import từ Postman. Member mở cùng repo là thấy ngay.
+
+Made by [Tung IT](https://github.com/tungg-it).

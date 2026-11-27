@@ -1,91 +1,184 @@
-# Zenar：Git ネイティブな API クライアント（Postman・Bruno の代替）
+<p align="center"><img src="assets/logo.png" alt="Zenar" width="96"></p>
+
+# Zenar：チームで API を呼び出し、そのまま Git に保存
 
 [English](README.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · **日本語**
 
-**Zenar は無料で軽量なデスクトップ API クライアント（Postman・Bruno の代替）です。API コレクションを通常の Git リポジトリに保存し、チームメイトの変更を自動でマージするため、Git に詳しくない人でも Git 経由で共同作業できます。**
+[![Version](https://img.shields.io/badge/version-0.1.0-blue)](https://zenar.tungit.io.vn/index.html)
+[![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)](#ダウンロードとインストール)
+![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
+![No telemetry](https://img.shields.io/badge/telemetry-none-green)
 
-REST と GraphQL のリクエストを送信し、GitHub や GitLab（セルフホスト含む）を通じて 1 つのコレクションをチームで共有できます。マージのコンフリクトマーカーを目にすることはありません。Git は裏で動き、表示されるのは**保存**と**コンフリクト**だけです。
+**Zenar は無料・オープンソースのデスクトップ API クライアント（Postman・Bruno の代替）で、Collection をチームの Git リポジトリに保存します。Git は裏で動き、表示されるのは Save と Conflict だけ。開発者も QA も BA も使えます。**
 
-> Zenar はネイティブのデスクトップアプリ（Tauri + Rust）で、Electron ではありません。アカウント不要、クラウドワークスペースなし、テレメトリなし、オフラインで動作します。
+Web サイト：[getzenar.vercel.app](https://getzenar.vercel.app)
+
+<p align="center"><img src="assets/workspace.png" alt="Zenar のメインウィンドウ：左に Collection ツリー、中央に Request と Response" width="900"></p>
+
+> 無料 · オープンソース · アカウント不要。Zenar はネイティブのデスクトップアプリ（Tauri + Rust）で、Electron ではありません。サインインなし、テレメトリなし、独自サーバーなし。オフラインで動作します。
+
+HTTPS で使えるあらゆる Git ホストに対応：GitHub、GitLab.com、セルフホスト GitLab、Gitea、Bitbucket、Forgejo、社内 Git。
 
 キーワード：API クライアント、REST クライアント、GraphQL クライアント、Postman 代替、Bruno 代替、オフライン API テスト、Git ベースの API コレクション、チーム向け API テストツール、HTTP クライアント デスクトップアプリ。
 
 ## Zenar が選ばれる理由
 
-- **Git が同期レイヤーです。** 1 つのコレクションが 1 つの Git リポジトリで、各リクエストは独立した YAML ファイルです。差分もプルリクエストも読みやすくなります。
-- **コンフリクトはアプリが解決します。** Zenar は行単位ではなくフィールド単位（メソッド、URL、各ヘッダー、各クエリパラメータ、認証、ボディ、スクリプト）でマージします。同じリクエストの別々のヘッダーを 2 人が編集してもコンフリクトにならず、`<<<<<<<` も表示されません。強制プッシュは行いません。
-- **Git を知らない人のために。** clone、commit、pull、push は「保存」とコンフリクト画面の裏に隠れています。
-- **シークレットは手元のマシンに残ります。** シークレットの値は Zenar のアプリデータフォルダ内のローカルファイルに保存され、リポジトリには入りません。チームメイトには変数名だけが見え、各自が自分の値を入力します。
-- **Postman コレクションをインポートできます。** `pm.*` 向けのスクリプトもそのまま動きます（Zenar 独自の API は `zn.*`）。
-- **独自サーバーはありません。** アプリが通信するのはあなたの Git ホストと API だけで、アプリ自身の通信はアップデート確認のみです。
-- **軽くて高速。** Rust コア、ライト／ダークテーマ対応。
+チームの Collection は、他社のクラウドではなくコードの隣に置くべきです。Postman は Collection を自社クラウドに保存します。Bruno はファイルとして保存しますが、commit、push、コンフリクトは自分で処理する必要があります。Zenar は Git リポジトリに保存し、Git の部分を自分で引き受けます。
+
+- **Postman：データはクラウド、チーム機能はプラン次第。** サインインが必要で、Collection と Environment は Postman のサーバー経由で同期されます。チーム機能の多くは有料プランです。
+- **Bruno：ファイルは Git に、でも Git はあなたの仕事。** 共有には commit、push、pull が必要です。2 人が同じファイルを編集するとテキストに Git のコンフリクトマーカーが入り、QA や BA には扱いにくくなります。
+- **Zenar：Save が共有。** 各 Request はチームのリポジトリ内の YAML ファイルです。Zenar が commit、push、変更の取り込みを行い、Field ごとにマージします。2 人が同じ箇所を編集したときだけ確認します。
+
+## 機能
+
+日々の作業で Postman を置き換えるのに十分：リクエスト送信、レスポンスの確認、スクリプト作成、Environment の切り替え。さらに、誰も Git を知らなくても成り立つチームワーク。
+
+<p align="center"><img src="assets/request.png" alt="zn と pm を使ったレスポンス後スクリプト付きの Request" width="900"></p>
+
+- **Save が共有、同期の手順なし。** Commit、Push、Sync ボタンはありません。他の Member の変更はバックグラウンドで届きます。オフライン時の Save はキューに入り、オンラインに戻ると送信されます。
+- **Field 単位のマージ。** Zenar は Field ごとに比較します：メソッド、URL、各ヘッダーとパラメータ、認証、ボディ、スクリプト。2 人が別々のヘッダーを編集した場合は自動でマージ。同じ Field を編集すると Request は **Needs Attention** に入り、どちらを残すか選べます。`<<<<<<<` マーカーを目にすることはなく、強制プッシュも行いません。
+- **トークンは手元のマシンに。** Secret 変数はリポジトリには名前だけが入り、値は各マシンに保存されます。Member は各自で入力するか、Environment のエクスポートファイルで受け取ります。
+- **Postman のスクリプトを再利用。** 送信前とレスポンス受信後に動く JavaScript で、`zn` API を使えます。Postman からインポートした `pm` を使うスクリプトもそのまま動きます。
+- **Postman からワンステップで移行。** v2.1 の Collection と Environment ファイル（Postman または `.env`）をインポートできます。ヘッダーやボディにハードコードされたトークンは、リポジトリに入る前に警告します。
+- **REST、GraphQL、form-data、バイナリ。** 変数補完付きの GraphQL エディタ。JSON、フォーム、バイナリファイルのボディ。
+- **読みやすいレスポンス。** JSON、XML、HTML、YAML、Markdown を整形・色分け。HTML はプレビュー可能。
+- **共有 Environment。** Collection 全体で dev、staging、prod を共有。使う Environment は各自が選びます。
+- **Captured Variable。** ログインのレスポンスからトークンを取り出し、次のリクエストで使えます。手元のマシンにだけ保存されます。
+- **オフラインで動作。** リポジトリはローカルにクローンされます。ネットがなくても社内 API を呼び、保存を続けられます。
+- **読み取り専用の Viewer。** リポジトリの読み取り権限だけの人は、リクエストを実行できますが Save はできません。
+- **リクエスト履歴。** 送信はすべて記録され、過去のレスポンスを開き直せます。
+- **cURL を貼り付け。** cURL コマンドを URL バーに貼り付けると、ヘッダー・ボディ・認証付きの Request になります。
+- **軽くて速い。** Tauri 上の Rust コアで、Electron ではありません。ライト／ダークテーマ。署名付きの自動アップデート。
+
+<p align="center"><img src="assets/import.png" alt="Zenar のインポートメニュー：Postman の Collection、または Postman・.env の Environment" width="900"></p>
+
+## 使い方
+
+空のリポジトリから共有 Collection まで 3 分：
+
+1. **空のリポジトリを作成**：GitHub、GitLab（セルフホストも可）、Gitea、Bitbucket など。リポジトリにアクセスできる人が Member です。
+2. **その HTTPS URL を Zenar に貼り付け。** Zenar はマシンにある Git と credential helper を使うので、社内プロキシや証明書もそのまま有効です。
+3. **Postman からインポート、または Request を作成。** 各 Request は読みやすい YAML ファイル（例：`orders/create-order.yaml`）になり、Git ホストの Web サイト上の Merge Request でそのままレビューできます。
+4. **Save を押す。** チームメイトには数秒で変更が届きます。commit や push の意味を知る必要はありません。
 
 ## Zenar と Postman と Bruno の比較
 
-|  | **Zenar** | **Postman** | **Bruno** |
-| --- | --- | --- | --- |
-| コレクションの保存先 | 自分の Git リポジトリ（1 リクエスト 1 YAML ファイル） | Postman クラウドのワークスペース（ローカルへのエクスポート可） | `.bru` ファイルのフォルダ（通常は Git にコミット） |
-| アカウント | 不要 | 必要（多くの機能でサインインが必要） | 不要 |
-| 完全オフライン動作 | 可能 | 限定的（Scratch Pad モード） | 可能 |
-| チーム共同作業 | HTTPS 対応のあらゆる Git ホスト（GitHub、GitLab、セルフホスト） | Postman クラウド（席数課金プラン） | Git 経由（Git ツールは自分で使う） |
-| Git をアプリが処理 | **はい**：保存・pull・push は自動、Git は隠される | 一部（プランによる） | いいえ、自分で Git を実行 |
-| コンフリクト処理 | **フィールド単位の自動マージ**、本当に衝突した時だけ確認 | クラウドのバージョン管理とフォーク | 通常の Git テキストマージ |
-| シークレット | 手元のマシン上のローカルファイル、リポジトリには入らない | Postman アカウントに保存 | 慣習として Git 管理外（secret ファイルと `.env`） |
-| Postman コレクションのインポート | 可能、`pm.*` スクリプトも動作 | ネイティブ | 可能 |
-| テレメトリ | なし | アカウントベースのクラウドサービス | オプトアウト可 |
-| アプリの基盤 | ネイティブ（Tauri + Rust） | Electron | Electron |
-| 料金 | 無料 | 無料プランあり、チームプランは有料 | 無料、Golden Edition は有料 |
+3 つともリクエストを送信できます。違いは、データがどこにあり、チームがどう共同作業するかです。
 
-競合の情報は各社の公開ドキュメントをもとにまとめたもので、変更されることがあります。判断の前に各社サイトで最新のプランをご確認ください。誤りがあれば issue でお知らせください。
+| 比較項目 | **Zenar** | **Postman** | **Bruno** |
+| --- | --- | --- | --- |
+| Collection の保存先 | チームの Git リポジトリ | Postman のクラウド | 手元のマシン上のファイル |
+| アカウント | 不要 | 必要 | 不要 |
+| 共有方法 | Save を押すだけ、Git は裏で動作 | クラウドワークスペース | 自分で commit、push、pull |
+| 2 人が同じ Request を編集 | Field ごとにマージ、同じ Field のときだけ確認 | クラウド同期、Collection を fork してマージ | テキストファイルに Git のコンフリクトマーカー |
+| Git の知識なしで使える | はい | はい | 難しい |
+| データが第三者を経由しない | はい | いいえ | はい |
+| 社内ネットワークのセルフホスト GitLab | はい | いいえ | はい、Git は自分で管理 |
+| Secret をリポジトリに入れない | デフォルトで | Current value、Vault | `.env`、`.gitignore` を自分で管理 |
+| Postman の `pm` スクリプトを実行 | そのまま | はい | インポート時に変換 |
+| ファイル形式 | YAML、Request ごとに 1 ファイル | エクスポート時に JSON | `.bru` または YAML |
+| アプリのランタイム | Tauri + Rust | Electron | Electron |
+| 価格 | 無料、オープンソース | 制限付きの無料プラン、ユーザー単位の有料 | オープンソース、有料版あり |
+
+執筆時点（2026 年 11 月）の Postman と Bruno の公開ドキュメントに基づいています。機能や価格はその後変わっている可能性があります。訂正は issue でお知らせください。
+
+## 原則：Zenar がしないこと
+
+- **サーバーなし。** サインインなし、テレメトリなし、独自のバックエンドなし。Zenar が自分のドメインからダウンロードするのは署名付きのアップデートだけです。
+- **トークンを預からない。** Git の操作はすべてマシンの `git` コマンドで実行します。Zenar はホストの API を呼ばず、他のリポジトリへのアクセスも求めません。
+- **テキストマージをしない。** 2 つの `Authorization` ヘッダーのように、YAML として正しくても意味が誤ったファイルを残しません。行ではなくモデルをマージします。
 
 ## ダウンロードとインストール
 
 **最新バージョン：0.1.0**
 
-| OS | ダウンロードするファイル | インストール方法 |
-| --- | --- | --- |
-| **macOS**（Apple Silicon・Intel） | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) | `.dmg` を開き、**Zenar** を**アプリケーション**にドラッグします。未確認の開発元と表示された場合は、アプリを右クリックして**開く**を選び、もう一度**開く**を押します。または `xattr -dr com.apple.quarantine /Applications/Zenar.app` を実行します。 |
-| **Windows** 10 / 11（x64） | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) | インストーラーを実行します。現在のビルドはコード署名されていないため、SmartScreen が警告する場合があります。**詳細情報**、**実行**の順に押してください。**スマート アプリ コントロール**が有効な Windows 11 では、インストーラーは完全にブロックされます（「実行」ボタンはありません）。**Windows セキュリティ → アプリとブラウザー コントロール → スマート アプリ コントロールの設定** でオフにしてから、もう一度実行してください。一部の Windows バージョンでは、一度オフにすると Windows を再インストールしない限り再びオンにできないため、事前に判断するか、署名済みのビルドをお待ちください。Windows 対応は実験的です。 |
-| **Linux**：全ディストリビューション | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`。このファイルは自動更新に対応します。 |
-| **Linux**：Debian / Ubuntu | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
-| **Linux**：Fedora / RHEL / openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
+**Git がインストールされ、Git ホストにサインイン済み**である必要があります（例：Git Credential Manager）。不足があれば Zenar が確認して案内します。Linux では WebKitGTK 4.1（`libwebkit2gtk-4.1`）も必要です。
 
-動作条件：**Git のインストールが必須**です（Zenar はシステムの `git` とその認証ヘルパーを使います）。Linux では WebKitGTK 4.1（`libwebkit2gtk-4.1`）も必要です。
+| OS | ダウンロードするファイル |
+| --- | --- |
+| **macOS**：Apple Silicon と Intel 向けのユニバーサルビルド | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) |
+| **Windows**：64 ビット Windows 用インストーラー | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) |
+| **Linux**：AppImage、ほとんどのディストリビューションで動作、自動アップデート | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
+| **Linux**：`.deb`、Ubuntu、Debian および Debian 系 | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
+| **Linux**：`.rpm`、Fedora、RHEL、openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
 
-**アップデート。** macOS アプリと Linux の AppImage は新バージョンを確認し、署名を検証してからインストールして再起動します。署名が一致しないものはインストールされません。`.deb`、`.rpm`、Windows インストーラーは新しいファイルを手動でダウンロードしてください。
+### macOS
 
-## クイックスタート
+1. **.dmg** を開き、**Zenar** を **Applications** にドラッグします。
+2. 開発元を確認できないため macOS がアプリをブロックした場合：**System Settings → Privacy & Security** を開き、**Open Anyway** をクリックします。macOS 14 以前：アプリを右クリックして **Open** を選び、もう一度 **Open** をクリックします。
 
-1. Zenar を開き、普段の Git 認証情報（HTTPS）で Git にサインインします。
-2. Git リポジトリの URL から**コレクションを開く**か、新規作成します。Zenar がマシンにクローンします。
-3. リクエストとフォルダを作成し、**Environment**（dev、staging など）を選んで **Send** を押します。
-4. **保存**を押します。チームメイトには次回の同期で変更が届きます。同じフィールドを両方が編集した場合は、どちらを残すか Zenar が尋ねます。
+またはターミナルで次を実行します：
 
-## 機能
+```sh
+xattr -dr com.apple.quarantine /Applications/Zenar.app
+```
 
-- REST リクエスト：メソッド、クエリパラメータ、ヘッダー、認証、JSON / form-data / urlencoded / raw / binary ボディ
-- 変数付き GraphQL
-- フォルダ、ネストしたフォルダ、ドラッグ＆ドロップ
-- Environment、Secret、Captured Variable
-- 送信前・レスポンス後の JavaScript スクリプト（`zn.*`、`pm.*` 互換）
-- Postman コレクションのインポート
-- フィールド単位の 3 ウェイマージ、コンフリクト画面、強制プッシュなし
-- ライト／ダークテーマ、macOS・Windows・Linux ネイティブビルド、署名付き自動アップデート
+アプリは自動でアップデートされます。
+
+### Windows
+
+1. インストーラーを実行します。まだコード署名されていないため SmartScreen が警告することがあります：**More info**、続いて **Run anyway** をクリックします。
+2. **Smart App Control** が有効な Windows 11 では、インストーラーが完全にブロックされます（Run anyway は表示されません）。**Windows Security → App & browser control → Smart App Control settings** で無効にしてから、もう一度実行してください。
+
+> [!WARNING]
+> 一部の Windows バージョンでは、Smart App Control を一度無効にすると Windows を再インストールしない限り再び有効にできません。先に判断するか、署名付きビルドをお待ちください。
+
+Windows 対応は試験的です。新しいバージョンはこのページから手動でダウンロードしてください。
+
+### Linux
+
+すべてのディストリビューション（AppImage、自動アップデート）。ダウンロードしたフォルダで実行します：
+
+```sh
+chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage
+```
+
+Debian / Ubuntu：
+
+```sh
+sudo apt install ./Zenar_0.1.0_amd64.deb
+```
+
+Fedora / RHEL：
+
+```sh
+sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm
+```
+
+openSUSE：
+
+```sh
+sudo zypper install ./Zenar-0.1.0-1.x86_64.rpm
+```
+
+AppImage は自動でアップデートされます。`.deb` と `.rpm` は新しいバージョンが出るとダウンロードページを開きます。
+
+自動アップデートするビルドは、インストールと再起動の前に署名を検証します。署名が一致しないものは決してインストールされません。
 
 ## よくある質問
 
-**Zenar は Postman の代替になりますか？** はい。Zenar は HTTP、REST、GraphQL のリクエストを送信できる無料のデスクトップ API クライアントで、Postman コレクションをインポートできます。
+**Git を知らなくても使えますか？** はい。表示されるのは Save と、Conflict があるときの Needs Attention リストだけです。誰かがマシンに Git をインストールし、ホストに一度サインインする必要があります。
 
-**Bruno との違いは？** どちらもコレクションを Git に入れられるファイルとして保存します。Bruno では Git を自分で実行しますが、Zenar は Git を代わりに実行し、競合する編集をフィールド単位でマージします。テスターや PM、サポート担当など Git を使わないメンバーがいるチームに向いています。
+**Zenar はデータを他の場所に保存しますか？** いいえ。Collection はあなたのリポジトリに、Secret と Draft はあなたのマシンにあります。Zenar にはサーバーがなく、テレメトリも送信しません。
 
-**アカウントやサーバーは必要ですか？** いいえ。セルフホストの GitLab を含め、すでに使っている Git ホストで動作し、テレメトリもありません。
+**Postman から移行するとスクリプトは失われますか？** いいえ。v2.1 の Collection と Environment をインポートできます。`pm` を使うスクリプトはそのまま動き、少しずつ `zn` に移行できます。
 
-**シークレットはどこに保存されますか？** Zenar のアプリデータフォルダ内の `secrets.json` に、あなたのマシン上だけに保存されます：
+**2 人が同じ Request を編集したら？** 異なる Field は自動でマージされます。同じ Field を編集した場合、Request は Needs Attention に入ります：Overwrite（その Field は自分の版を残す）を選ぶか、自分の編集を Draft として残します。
 
-- macOS: `~/Library/Application Support/app.zenar.desktop/secrets.json`
-- Windows: `%APPDATA%\app.zenar.desktop\secrets.json`
-- Linux: `~/.local/share/app.zenar.desktop/secrets.json`（または `$XDG_DATA_HOME/app.zenar.desktop/secrets.json`）
+**社内ネットワークのセルフホスト GitLab で使えますか？** はい。Zenar はマシンの `git` コマンドを実行するので、マシンで使っているプロキシ、CA 証明書、認証情報がそのまま使われます。
 
-このファイルはプレーンテキストです（macOS と Linux ではあなたのユーザーだけが読めます）。リポジトリに入ることはありません。
+**Secret はどこに保存されますか？** Zenar のアプリデータフォルダ内の `secrets.json` に、あなたのマシン上にだけ保存されます：
 
-**オフラインでも使えますか？** はい。コレクションはローカルのクローンなので、オンラインに戻ってから同期できます。
+- macOS：`~/Library/Application Support/app.zenar.desktop/secrets.json`
+- Windows：`%APPDATA%\app.zenar.desktop\secrets.json`
+- Linux：`~/.local/share/app.zenar.desktop/secrets.json`（または `$XDG_DATA_HOME/app.zenar.desktop/secrets.json`）
+
+ファイルはプレーンテキストで（macOS と Linux では自分のユーザーだけが読めます）、リポジトリには決して入りません。
+
+**Zenar は有料ですか？** いいえ。Zenar は無料でオープンソースです。唯一のインフラ費用はアップデートファイルのホスティングです。
+
+---
+
+**今日からチームの Collection を Git に。** Zenar をダウンロードし、リポジトリの URL を貼り付けて、Postman からインポート。同じリポジトリを開いたチームメイトにはすぐに表示されます。
+
+Made by [Tung IT](https://github.com/tungg-it).

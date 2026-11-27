@@ -1,4 +1,6 @@
-# Zenar: Git-native API client for Postman collections
+<p align="center"><img src="assets/logo.png" alt="Zenar" width="96"></p>
+
+# Zenar: call APIs as a team, saved straight to Git
 
 **English** · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
@@ -7,85 +9,165 @@
 ![Built with Tauri + Rust](https://img.shields.io/badge/built%20with-Tauri%20%2B%20Rust-orange)
 ![No telemetry](https://img.shields.io/badge/telemetry-none-green)
 
-**Zenar is a free, lightweight desktop API client (a Postman and Bruno alternative) that stores your API collection in a plain Git repository and merges teammates' changes for you, so people who do not know Git can still collaborate through Git.**
+**Zenar is a free, open-source desktop API client (a Postman and Bruno alternative) that keeps your Collection in your team's Git repo. Git runs in the background: you only see Save and Conflict. Developers, QA and BAs can all use it.**
 
-Send REST and GraphQL requests, share one collection with your team through GitHub or GitLab (including self-hosted), and never see a merge-conflict marker. Git runs quietly in the background. You only see **Save** and **Conflict**.
+Website: [getzenar.vercel.app](https://getzenar.vercel.app)
 
-> Zenar is a native desktop app (Tauri + Rust), not an Electron app. No account, no cloud workspace, no telemetry. Works offline.
+<p align="center"><img src="assets/workspace.png" alt="Zenar's main window: the Collection tree on the left, Request and Response in the middle" width="900"></p>
 
-Keywords: API client, REST client, GraphQL client, Postman alternative, Bruno alternative, Insomnia alternative, offline API testing, Git-based API collection, open collection format, API testing tool for teams, HTTP client desktop app.
+> Free · Open source · No account. Zenar is a native desktop app (Tauri + Rust), not Electron. No sign-in, no telemetry, no server of its own. Works offline.
+
+Works with any Git host over HTTPS: GitHub, GitLab.com, self-hosted GitLab, Gitea, Bitbucket, Forgejo, in-house Git.
+
+Keywords: API client, REST client, GraphQL client, Postman alternative, Bruno alternative, Insomnia alternative, offline API testing, Git-based API collection, API testing tool for teams, HTTP client desktop app.
 
 ## Why Zenar
 
-- **Git is the sync layer.** A Collection is one Git repo. Every Request is its own YAML file, so diffs and pull requests are readable.
-- **Conflicts the app can resolve.** Zenar merges per field (method, URL, each header, each query param, auth, body, script) instead of per text line. Two people editing different headers of the same request never conflict, and you never see `<<<<<<<` markers. It never force-pushes.
-- **For people who do not know Git.** Clone, commit, pull and push are hidden behind Save and a conflict screen.
-- **Secrets stay on your machine.** Secret values live in a local file in Zenar's app data folder and never enter the repo. Teammates see the variable name and fill in their own value.
-- **Bring your Postman collections.** Import Postman collections, and scripts written for `pm.*` keep running (Zenar's own API is `zn.*`).
-- **No server of ours.** The app talks to your Git host and your APIs, nothing else. The only network call of its own is checking for updates.
-- **Light and fast.** Rust core, small native app, light and dark themes.
+Your team's Collection belongs next to your code, not on someone else's cloud. Postman keeps Collections on its cloud. Bruno stores files but leaves commit, push and conflicts to you. Zenar saves to a Git repo and handles the Git part itself.
+
+- **Postman: data on the cloud, teamwork by plan.** You sign in, and Collections and Environments sync through Postman's servers. Many team features sit in paid plans.
+- **Bruno: files in Git, but Git is your job.** Sharing means commit, push and pull. When two people edit the same file you get Git conflict markers in text, which is hard for QA and BAs.
+- **Zenar: Save is share.** Each Request is a YAML file in your team's repo. Zenar commits, pushes, pulls changes in and merges per Field. It only asks when two people edit the same thing.
+
+## Features
+
+Enough to replace Postman for daily work: send requests, read responses, write scripts, switch Environments. Plus teamwork that needs nobody to know Git.
+
+<p align="center"><img src="assets/request.png" alt="A Request with an after-response script using zn and pm" width="900"></p>
+
+- **Save is share, with no sync step.** No Commit, Push or Sync button. Other Members' changes arrive in the background. Offline, your Saves queue up and go out once you're back online.
+- **Per-Field merge.** Zenar compares each Field: method, URL, each header and param, auth, body, script. Two people editing two different headers are merged automatically. Editing the same Field puts the Request in **Needs Attention**, where you pick which version to keep. You never see `<<<<<<<` markers, and Zenar never force-pushes.
+- **Tokens stay on your machine.** A Secret variable has only its name in the repo; its value lives on each machine. Members fill in their own, or receive it through an Environment export file.
+- **Reuse your Postman scripts.** JavaScript that runs before sending and after the response, with the `zn` API. Scripts imported from Postman that use `pm` run unchanged.
+- **Move from Postman in one step.** Import v2.1 Collections and Environment files (from Postman or `.env`). Zenar warns you about tokens hard-coded in headers or bodies before they reach the repo.
+- **REST, GraphQL, form-data, binary.** GraphQL editor with variable suggestions. JSON, form and binary file bodies.
+- **Readable responses.** Formats and colours JSON, XML, HTML, YAML and Markdown. Previews HTML.
+- **Shared Environments.** dev, staging, prod for the whole Collection. Each person picks their own active one.
+- **Captured Variables.** Grab a token from the login response and use it in the next requests. Lives only on your machine.
+- **Works offline.** The repo is cloned locally. No internet? Call internal APIs and keep saving.
+- **Read-only Viewers.** Anyone with read-only repo access can run requests but not Save.
+- **Request history.** Every send is recorded, so you can reopen old responses.
+- **Paste cURL.** Paste a cURL command into the URL bar to get a Request with headers, body and auth.
+- **Light and fast.** Rust core on Tauri, not Electron. Light and dark themes. Signed automatic updates.
+
+<p align="center"><img src="assets/import.png" alt="Zenar's Import menu: a Postman Collection, or an Environment from Postman or .env" width="900"></p>
+
+## How it works
+
+From an empty repo to a shared Collection in 3 minutes:
+
+1. **Create an empty repo** on GitHub, GitLab (self-hosted too), Gitea or Bitbucket. Anyone with repo access is a Member.
+2. **Paste its HTTPS URL into Zenar.** Zenar uses the Git and credential helper already on your machine, so your company proxy and certificates still apply.
+3. **Import from Postman or create a Request.** Each Request becomes a readable YAML file (for example `orders/create-order.yaml`) you can review right on your Git host's website, in a Merge Request.
+4. **Press Save.** Teammates get the change within seconds. Nobody needs to know what commit or push means.
 
 ## Zenar vs Postman vs Bruno
 
-| | **Zenar** | **Postman** | **Bruno** |
-| --- | --- | --- | --- |
-| Where collections live | A Git repo you own, one YAML file per request | Postman cloud workspaces (local export possible) | Local folders of `.bru` files, usually committed to Git |
-| Account required | No | Yes (sign-in needed for most features) | No |
-| Works fully offline | Yes | Limited (Scratch Pad mode) | Yes |
-| Team collaboration | Through any Git host over HTTPS (GitHub, GitLab, self-hosted) | Postman cloud, per-seat plans | Through Git, using your own Git tools |
-| Git handled by the app | **Yes**: Save, pull and push are automatic, Git is hidden | Partial, on supported plans | No, you run Git yourself |
-| Conflict handling | **Field-level automatic merge**, you only pick on a true clash | Cloud versioning and forks | Normal Git text merge |
-| Secrets | Local file on your machine, never in the repo | Stored in your Postman account | Kept out of Git by convention (secret and `.env` files) |
-| Import Postman collections | Yes, `pm.*` scripts still run | Native | Yes |
-| Telemetry | None | Account-based cloud service | Opt-out |
-| App runtime | Native (Tauri + Rust) | Electron | Electron |
-| Price | Free | Free tier, paid team plans | Free, paid Golden Edition |
+All three send requests. They differ in where your data lives and how a team works on it together.
 
-Competitor details are summarized from their public documentation and change over time. Check the vendors' sites for current plans before you decide. Corrections welcome: open an issue.
+| Criteria | **Zenar** | **Postman** | **Bruno** |
+| --- | --- | --- | --- |
+| Where the Collection lives | Your team's Git repo | Postman's cloud | Files on your machine |
+| Account required | No | Yes | No |
+| How you share | Press Save, Git runs in the background | Cloud workspace | Commit, push, pull yourself |
+| Two people edit one Request | Merged per Field, asks only on the same Field | Cloud sync, fork and merge Collections | Git conflict markers in a text file |
+| Usable without Git skills | Yes | Yes | Hard |
+| Data never goes through a third party | Yes | No | Yes |
+| Self-hosted GitLab on an internal network | Yes | No | Yes, you manage Git |
+| Secrets kept out of the repo | By default | Current value, Vault | Manage `.env`, `.gitignore` |
+| Runs Postman `pm` scripts | Unchanged | Yes | Converted on import |
+| File format | YAML, one file per Request | JSON on export | `.bru` or YAML |
+| App runtime | Tauri + Rust | Electron | Electron |
+| Price | Free, open source | Limited free plan, paid per user | Open source, paid edition available |
+
+Based on Postman's and Bruno's public documentation at the time of writing (Nov 2026). Their features and pricing may have changed since. Corrections welcome: open an issue.
+
+## Principles: what Zenar doesn't do
+
+- **No server.** No sign-in, no telemetry, no backend of its own. The only thing Zenar downloads from its own domain is signed updates.
+- **Never holds your token.** Every Git operation runs through your machine's `git` command. Zenar never calls your host's API and never asks for access to other repos.
+- **No text merging.** Never leaves a valid YAML file that means the wrong thing, like two `Authorization` headers. It merges the model, not lines.
 
 ## Download and install
 
 **Latest version: 0.1.0**
 
-| OS | File to download | How to install |
-| --- | --- | --- |
-| **macOS** (Apple Silicon and Intel) | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) | Open the `.dmg`, drag **Zenar** to **Applications**. If macOS says the app is from an unidentified developer, right-click the app, choose **Open**, then **Open** again. Or run `xattr -dr com.apple.quarantine /Applications/Zenar.app`. |
-| **Windows** 10 / 11 (x64) | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) | Run the installer. The build is not code-signed yet, so SmartScreen may warn: click **More info**, then **Run anyway**. On Windows 11 with **Smart App Control** on, the installer is blocked outright (there is no Run anyway): turn Smart App Control off in **Windows Security → App & browser control → Smart App Control settings**, then run it again. On some Windows versions Smart App Control cannot be turned back on without reinstalling Windows, so decide first, or wait for a signed build. Windows support is experimental. |
-| **Linux**: any distro | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) | `chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage`. This one updates itself. |
-| **Linux**: Debian / Ubuntu | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) | `sudo apt install ./Zenar_0.1.0_amd64.deb` |
-| **Linux**: Fedora / RHEL / openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) | `sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm` |
+You need **Git installed and signed in to your Git host** (for example via Git Credential Manager). Zenar checks and guides you if anything is missing. Linux also needs WebKitGTK 4.1 (`libwebkit2gtk-4.1`).
 
-Requirements: **Git must be installed** (Zenar uses your system `git` and its credential helper). Linux also needs WebKitGTK 4.1 (`libwebkit2gtk-4.1`).
+| OS | File to download |
+| --- | --- |
+| **macOS**: universal build for Apple Silicon and Intel | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) |
+| **Windows**: installer for 64-bit Windows | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) |
+| **Linux**: AppImage, runs on most distributions, updates itself | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
+| **Linux**: `.deb` for Ubuntu, Debian and Debian-based distributions | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
+| **Linux**: `.rpm` for Fedora, RHEL, openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
 
-**Updates.** The macOS app and the Linux AppImage check for new versions, verify a signature, then install and relaunch. A signature mismatch is never installed. `.deb`, `.rpm` and Windows installers: download the new file by hand.
+### macOS
 
-## Quick start
+1. Open the **.dmg** and drag **Zenar** to **Applications**.
+2. If macOS blocks the app because it can't verify the developer: go to **System Settings → Privacy & Security** and click **Open Anyway**. On macOS 14 or earlier: right-click the app, choose **Open**, then **Open** again.
 
-1. Open Zenar and sign in to Git through your normal Git credentials (HTTPS).
-2. **Open a Collection** from a Git repo URL, or create a new one. Zenar clones it to your machine.
-3. Create requests and folders, pick an **Environment** (dev, staging, ...), and press **Send**.
-4. Press **Save**. Teammates get your change on their next sync. If you both edited the same field, Zenar asks which one to keep.
+Or run this in Terminal:
 
-## Features
+```sh
+xattr -dr com.apple.quarantine /Applications/Zenar.app
+```
 
-- REST requests: methods, query params, headers, auth, JSON / form-data / urlencoded / raw / binary bodies
-- GraphQL with variables
-- Folders, nested folders, drag and drop
-- Environments, Secrets and Captured Variables
-- Before-request and after-response JavaScript scripts (`zn.*`, `pm.*` compatible)
-- Postman collection import
-- Field-level three-way merge, conflict screen, no force push
-- Light / dark theme, native macOS, Windows and Linux builds, signed auto-update
+The app updates itself.
+
+### Windows
+
+1. Run the installer. The build is not code-signed yet, so SmartScreen may warn you: click **More info**, then **Run anyway**.
+2. Windows 11 with **Smart App Control** on blocks the installer outright (there is no Run anyway). Turn it off in **Windows Security → App & browser control → Smart App Control settings**, then run the installer again.
+
+> [!WARNING]
+> On some Windows versions, Smart App Control can't be turned back on without reinstalling Windows. Decide first, or wait for a signed build.
+
+Windows support is experimental. Download new versions from this page.
+
+### Linux
+
+Any distro (AppImage, updates itself). Run it in the folder you downloaded to:
+
+```sh
+chmod +x Zenar_0.1.0_amd64.AppImage && ./Zenar_0.1.0_amd64.AppImage
+```
+
+Debian / Ubuntu:
+
+```sh
+sudo apt install ./Zenar_0.1.0_amd64.deb
+```
+
+Fedora / RHEL:
+
+```sh
+sudo dnf install ./Zenar-0.1.0-1.x86_64.rpm
+```
+
+openSUSE:
+
+```sh
+sudo zypper install ./Zenar-0.1.0-1.x86_64.rpm
+```
+
+AppImage updates itself; `.deb` and `.rpm` open the download page when a new version is out.
+
+Self-updating builds verify a signature before they install and relaunch. A signature mismatch is never installed.
 
 ## FAQ
 
-**Is Zenar a Postman alternative?** Yes. Zenar is a free desktop API client for sending HTTP, REST and GraphQL requests, and it imports Postman collections.
+**Can I use it without knowing Git?** Yes. You only see Save, and the Needs Attention list when there's a Conflict. Someone needs to install Git and sign in to the host once on your machine.
 
-**How is Zenar different from Bruno?** Both keep collections as files you can put in Git. With Bruno you run Git yourself. Zenar runs Git for you and merges conflicting edits per field, which suits teams that include testers, PMs or support staff who do not use Git.
+**Does Zenar store my data anywhere else?** No. The Collection lives in your repo; Secrets and Drafts live on your machine. Zenar has no server and sends no telemetry.
 
-**Does Zenar need an account or a server?** No. It works with the Git host you already use, including self-hosted GitLab, and has no telemetry.
+**Will I lose my scripts moving from Postman?** No. Import v2.1 Collections and Environments. Scripts using `pm` run unchanged, and you can move to `zn` over time.
 
-**Where are my secrets stored?** In `secrets.json` in Zenar's app data folder, on your machine only:
+**What if two people edit the same Request?** Different Fields are merged automatically. If you both edit the same Field, the Request goes to Needs Attention: choose Overwrite (keep yours for that Field) or keep your edits as a Draft.
+
+**Does it work with self-hosted GitLab on a company network?** Yes. Zenar runs your machine's `git` command, so it uses the same proxy, CA certificates and credentials your machine already uses.
+
+**Where are my Secrets stored?** In `secrets.json` in Zenar's app data folder, on your machine only:
 
 - macOS: `~/Library/Application Support/app.zenar.desktop/secrets.json`
 - Windows: `%APPDATA%\app.zenar.desktop\secrets.json`
@@ -93,8 +175,10 @@ Requirements: **Git must be installed** (Zenar uses your system `git` and its cr
 
 The file is plain text (on macOS and Linux only your user can read it) and never enters the repo.
 
-**Does it work offline?** Yes. The collection is a local clone. Sync when you are back online.
+**Does Zenar cost anything?** No. Zenar is free and open source. Its only infrastructure cost is hosting the update files.
 
-## Tiếng Việt
+---
 
-Zenar là ứng dụng desktop miễn phí để gọi API (thay thế Postman, Bruno), lưu Collection trong một repo Git và tự gộp thay đổi của đồng đội theo từng Field, dành cho cả người không rành Git. Tải bản mới nhất ở [Releases](https://zenar.tungit.io.vn/index.html).
+**Bring your team's Collection into Git today.** Get Zenar, paste your repo URL, import from Postman. Teammates who open the same repo see it right away.
+
+Made by [Tung IT](https://github.com/tungg-it).
