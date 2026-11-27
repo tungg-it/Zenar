@@ -101,6 +101,7 @@ HTTPS で使えるあらゆる Git ホストに対応：GitHub、GitLab.com、�
 | **Linux**：AppImage、ほとんどのディストリビューションで動作、自動アップデート | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
 | **Linux**：`.deb`、Ubuntu、Debian および Debian 系 | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
 | **Linux**：`.rpm`、Fedora、RHEL、openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
+| **Linux**：`.tar.xz`、Arch、CachyOS などのディストリビューション向け。AppImage やパッケージ不要 | [`Zenar_0.1.0_amd64.tar.xz`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.tar.xz) |
 
 ### macOS
 
@@ -151,7 +152,14 @@ openSUSE：
 sudo zypper install ./Zenar-0.1.0-1.x86_64.rpm
 ```
 
-AppImage は自動でアップデートされます。`.deb` と `.rpm` は新しいバージョンが出るとダウンロードページを開きます。
+Arch / CachyOS / その他のディストリビューション（`.tar.xz`）。`install.sh` は Zenar を `~/.local`（`sudo` で実行した場合は `/usr/local`）にコピーし、アプリメニューに追加します。`./install.sh --uninstall` で削除できます。インストールせずに `bin/zenar` を直接実行することもできます。他のディストリビューションでは `pacman` の代わりにパッケージマネージャーで WebKitGTK 4.1 と Git をインストールしてください：
+
+```sh
+sudo pacman -S --needed webkit2gtk-4.1 git
+tar -xJf Zenar_0.1.0_amd64.tar.xz && ./Zenar_0.1.0_amd64/install.sh
+```
+
+AppImage は自動でアップデートされます。`.deb`、`.rpm`、`.tar.xz` は新しいバージョンが出るとダウンロードページを開きます。
 
 自動アップデートするビルドは、インストールと再起動の前に署名を検証します。署名が一致しないものは決してインストールされません。
 

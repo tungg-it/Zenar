@@ -101,6 +101,7 @@ You need **Git installed and signed in to your Git host** (for example via Git C
 | **Linux**: AppImage, runs on most distributions, updates itself | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
 | **Linux**: `.deb` for Ubuntu, Debian and Debian-based distributions | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
 | **Linux**: `.rpm` for Fedora, RHEL, openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
+| **Linux**: `.tar.xz` for Arch, CachyOS and other distros, no AppImage or package needed | [`Zenar_0.1.0_amd64.tar.xz`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.tar.xz) |
 
 ### macOS
 
@@ -151,7 +152,14 @@ openSUSE:
 sudo zypper install ./Zenar-0.1.0-1.x86_64.rpm
 ```
 
-AppImage updates itself; `.deb` and `.rpm` open the download page when a new version is out.
+Arch / CachyOS / any other distro (`.tar.xz`). `install.sh` copies Zenar into `~/.local` (or `/usr/local` with `sudo`) and adds it to the app menu; `./install.sh --uninstall` removes it. You can also run `bin/zenar` without installing. On other distros install WebKitGTK 4.1 and Git with your package manager instead of `pacman`:
+
+```sh
+sudo pacman -S --needed webkit2gtk-4.1 git
+tar -xJf Zenar_0.1.0_amd64.tar.xz && ./Zenar_0.1.0_amd64/install.sh
+```
+
+AppImage updates itself; `.deb`, `.rpm` and `.tar.xz` open the download page when a new version is out.
 
 Self-updating builds verify a signature before they install and relaunch. A signature mismatch is never installed.
 

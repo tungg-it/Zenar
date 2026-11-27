@@ -101,6 +101,7 @@ Cần **Git trên máy và đã đăng nhập host Git** (ví dụ qua Git Crede
 | **Linux**: AppImage, chạy trên hầu hết bản phân phối, tự cập nhật | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
 | **Linux**: `.deb` cho Ubuntu, Debian và các bản dựa trên Debian | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
 | **Linux**: `.rpm` cho Fedora, RHEL, openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
+| **Linux**: `.tar.xz` cho Arch, CachyOS và các bản phân phối khác, không cần AppImage hay gói cài | [`Zenar_0.1.0_amd64.tar.xz`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.tar.xz) |
 
 ### macOS
 
@@ -151,7 +152,14 @@ openSUSE:
 sudo zypper install ./Zenar-0.1.0-1.x86_64.rpm
 ```
 
-AppImage tự cập nhật; `.deb` và `.rpm` mở trang tải về khi có bản mới.
+Arch / CachyOS / bản phân phối khác (`.tar.xz`). `install.sh` chép Zenar vào `~/.local` (hoặc `/usr/local` khi chạy với `sudo`) và thêm vào menu ứng dụng; `./install.sh --uninstall` để gỡ. Cũng có thể chạy thẳng `bin/zenar` mà không cần cài. Ở bản phân phối khác, cài WebKitGTK 4.1 và Git bằng trình quản lý gói của bạn thay cho `pacman`:
+
+```sh
+sudo pacman -S --needed webkit2gtk-4.1 git
+tar -xJf Zenar_0.1.0_amd64.tar.xz && ./Zenar_0.1.0_amd64/install.sh
+```
+
+AppImage tự cập nhật; `.deb`, `.rpm` và `.tar.xz` mở trang tải về khi có bản mới.
 
 Các bản tự cập nhật đều xác minh chữ ký trước khi cài và mở lại. Chữ ký sai sẽ không bao giờ được cài.
 

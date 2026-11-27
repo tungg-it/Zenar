@@ -101,6 +101,7 @@
 | **Linux**：AppImage，适用于大多数发行版，可自动更新 | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
 | **Linux**：`.deb`，适用于 Ubuntu、Debian 及基于 Debian 的发行版 | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
 | **Linux**：`.rpm`，适用于 Fedora、RHEL、openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
+| **Linux**：`.tar.xz`，适用于 Arch、CachyOS 及其他发行版，无需 AppImage 或安装包 | [`Zenar_0.1.0_amd64.tar.xz`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.tar.xz) |
 
 ### macOS
 
@@ -151,7 +152,14 @@ openSUSE：
 sudo zypper install ./Zenar-0.1.0-1.x86_64.rpm
 ```
 
-AppImage 会自动更新；`.deb` 和 `.rpm` 在有新版本时会打开下载页面。
+Arch / CachyOS / 其他发行版（`.tar.xz`）。`install.sh` 会把 Zenar 复制到 `~/.local`（用 `sudo` 运行时为 `/usr/local`）并添加到应用菜单；`./install.sh --uninstall` 可卸载。也可以不安装，直接运行 `bin/zenar`。在其他发行版上，请用你的包管理器代替 `pacman` 安装 WebKitGTK 4.1 和 Git：
+
+```sh
+sudo pacman -S --needed webkit2gtk-4.1 git
+tar -xJf Zenar_0.1.0_amd64.tar.xz && ./Zenar_0.1.0_amd64/install.sh
+```
+
+AppImage 会自动更新；`.deb`、`.rpm` 和 `.tar.xz` 在有新版本时会打开下载页面。
 
 可自动更新的版本在安装并重启前都会验证签名。签名不匹配的更新绝不会被安装。
 
