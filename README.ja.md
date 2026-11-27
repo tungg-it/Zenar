@@ -98,6 +98,7 @@ HTTPS で使えるあらゆる Git ホストに対応：GitHub、GitLab.com、�
 | --- | --- |
 | **macOS**：Apple Silicon と Intel 向けのユニバーサルビルド | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) |
 | **Windows**：64 ビット Windows 用インストーラー | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) |
+| **Windows**：ポータブル版、インストール不要（展開して `Zenar.exe` を実行） | [`Zenar_0.1.0_x64-portable.zip`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-portable.zip) |
 | **Linux**：AppImage、ほとんどのディストリビューションで動作、自動アップデート | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
 | **Linux**：`.deb`、Ubuntu、Debian および Debian 系 | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
 | **Linux**：`.rpm`、Fedora、RHEL、openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
@@ -123,6 +124,8 @@ xattr -dr com.apple.quarantine /Applications/Zenar.app
 
 > [!WARNING]
 > 一部の Windows バージョンでは、Smart App Control を一度無効にすると Windows を再インストールしない限り再び有効にできません。先に判断するか、署名付きビルドをお待ちください。
+
+**ポータブル版（インストール不要）：** `.zip` を右クリック → **プロパティ** → **許可する** にチェック → **OK**。任意の場所に展開して `Zenar.exe` を実行します。設定と Collection はインストール版と同じ `%APPDATA%` に保存されます。[WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/) が必要です（Windows 11 と、更新済みのほとんどの Windows 10 には組み込まれています）。ポータブル版は自動でアップデートされません。新しいバージョンが出ると、Zenar はこのページを開きます。
 
 Windows 対応は試験的です。新しいバージョンはこのページから手動でダウンロードしてください。
 

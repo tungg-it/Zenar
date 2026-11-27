@@ -98,6 +98,7 @@ Cần **Git trên máy và đã đăng nhập host Git** (ví dụ qua Git Crede
 | --- | --- |
 | **macOS**: bản universal, chạy trên Apple Silicon và Intel | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) |
 | **Windows**: bộ cài cho Windows 64-bit | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) |
+| **Windows**: bản portable, không cần cài (giải nén rồi chạy `Zenar.exe`) | [`Zenar_0.1.0_x64-portable.zip`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-portable.zip) |
 | **Linux**: AppImage, chạy trên hầu hết bản phân phối, tự cập nhật | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
 | **Linux**: `.deb` cho Ubuntu, Debian và các bản dựa trên Debian | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
 | **Linux**: `.rpm` cho Fedora, RHEL, openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
@@ -123,6 +124,8 @@ App tự cập nhật.
 
 > [!WARNING]
 > Trên một số phiên bản Windows, đã tắt Smart App Control thì không bật lại được nếu không cài lại Windows. Hãy cân nhắc trước, hoặc chờ bản được ký số.
+
+**Bản portable (không cần cài):** chuột phải vào file `.zip` → **Properties** → tick **Unblock** → **OK**, rồi giải nén ở đâu cũng được và chạy `Zenar.exe`. Cài đặt và Collection được lưu trong `%APPDATA%`, cùng chỗ với bản cài. Cần có [WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/) (Windows 11 và hầu hết Windows 10 đã cập nhật đều có sẵn). Bản portable không tự cập nhật: khi có bản mới, Zenar mở trang này.
 
 Hỗ trợ Windows đang ở giai đoạn thử nghiệm. Bản mới tải lại tại trang này.
 

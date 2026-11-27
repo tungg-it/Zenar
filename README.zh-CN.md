@@ -98,6 +98,7 @@
 | --- | --- |
 | **macOS**：通用版，支持 Apple Silicon 和 Intel | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) |
 | **Windows**：64 位 Windows 安装程序 | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) |
+| **Windows**：便携版，无需安装（解压后运行 `Zenar.exe`） | [`Zenar_0.1.0_x64-portable.zip`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-portable.zip) |
 | **Linux**：AppImage，适用于大多数发行版，可自动更新 | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
 | **Linux**：`.deb`，适用于 Ubuntu、Debian 及基于 Debian 的发行版 | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
 | **Linux**：`.rpm`，适用于 Fedora、RHEL、openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
@@ -123,6 +124,8 @@ xattr -dr com.apple.quarantine /Applications/Zenar.app
 
 > [!WARNING]
 > 在某些 Windows 版本上，关闭 Smart App Control 后，不重装 Windows 就无法再次开启。请先考虑清楚，或等待签名版本。
+
+**便携版（无需安装）：** 右键点击 `.zip` → **属性** → 勾选 **解除锁定** → **确定**，然后解压到任意位置并运行 `Zenar.exe`。设置和 Collection 保存在 `%APPDATA%`，与安装版相同。需要 [WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/)（Windows 11 和大多数已更新的 Windows 10 已内置）。便携版不会自动更新：有新版本时，Zenar 会打开本页面。
 
 Windows 支持仍处于实验阶段。新版本请在本页手动下载。
 

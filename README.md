@@ -98,6 +98,7 @@ You need **Git installed and signed in to your Git host** (for example via Git C
 | --- | --- |
 | **macOS**: universal build for Apple Silicon and Intel | [`Zenar_0.1.0_universal.dmg`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_universal.dmg) |
 | **Windows**: installer for 64-bit Windows | [`Zenar_0.1.0_x64-setup.exe`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-setup.exe) |
+| **Windows**: portable, no install (unzip and run `Zenar.exe`) | [`Zenar_0.1.0_x64-portable.zip`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_x64-portable.zip) |
 | **Linux**: AppImage, runs on most distributions, updates itself | [`Zenar_0.1.0_amd64.AppImage`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.AppImage) |
 | **Linux**: `.deb` for Ubuntu, Debian and Debian-based distributions | [`Zenar_0.1.0_amd64.deb`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar_0.1.0_amd64.deb) |
 | **Linux**: `.rpm` for Fedora, RHEL, openSUSE | [`Zenar-0.1.0-1.x86_64.rpm`](https://zenar.tungit.io.vn/stable/0.1.0/Zenar-0.1.0-1.x86_64.rpm) |
@@ -123,6 +124,8 @@ The app updates itself.
 
 > [!WARNING]
 > On some Windows versions, Smart App Control can't be turned back on without reinstalling Windows. Decide first, or wait for a signed build.
+
+**Portable (no install):** right-click the `.zip` → **Properties** → tick **Unblock** → **OK**, then extract it anywhere and run `Zenar.exe`. Settings and Collections are kept in `%APPDATA%`, the same place as the installed app. It needs the [WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/) (built into Windows 11 and most up-to-date Windows 10). The portable copy does not update itself: when a new version is out, Zenar opens this page.
 
 Windows support is experimental. Download new versions from this page.
 
