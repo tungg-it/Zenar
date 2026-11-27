@@ -15,7 +15,7 @@ Infer the repo from `git remote -v`; `gh` does this automatically when run insid
 
 ## Pull requests
 
-**PRs as a request surface: no.** This repo does not accept code contributions. Pull requests are closed automatically; bugs and feature requests go in issues.
+**PRs as a request surface: no.** This repo does not accept code contributions; pull requests are turned off. Bugs and feature requests go in issues.
 
 ## When a skill says "publish to the issue tracker"
 
