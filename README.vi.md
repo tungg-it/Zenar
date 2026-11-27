@@ -61,26 +61,26 @@ Từ repo trống đến cả team dùng chung trong 3 phút:
 3. **Import từ Postman hoặc tạo Request mới.** Mỗi Request thành một file YAML dễ đọc (ví dụ `orders/create-order.yaml`), review được ngay trên trang web của host Git, trong Merge Request.
 4. **Bấm Save.** Member nhận được thay đổi trong vài giây. Không cần biết commit hay push là gì.
 
-## Zenar so với Postman và Bruno
+## Zenar so với Postman, Bruno và Insomnia
 
-Ba công cụ đều gửi được request. Khác nhau ở chỗ dữ liệu nằm đâu và cả team làm việc chung ra sao.
+Cả bốn công cụ đều gửi được request. Khác nhau ở chỗ dữ liệu nằm đâu và cả team làm việc chung ra sao.
 
-| Tiêu chí | **Zenar** | **Postman** | **Bruno** |
-| --- | --- | --- | --- |
-| Nơi lưu Collection | Repo Git của team | Cloud của Postman | File trên máy |
-| Cần tài khoản | Không | Có | Không |
-| Cách chia sẻ | Bấm Save, Git chạy ngầm | Workspace trên cloud | Tự commit, push, pull |
-| Khi hai người sửa cùng Request | Tự gộp theo Field, chỉ hỏi khi trùng Field | Đồng bộ qua cloud, fork và merge Collection | Conflict marker của Git trong file text |
-| Người không rành Git dùng được | Có | Có | Khó |
-| Dữ liệu không qua bên thứ ba | Có | Không | Có |
-| GitLab tự host trong mạng nội bộ | Có | Không | Có, tự quản lý Git |
-| Secret không vào repo | Mặc định | Current value, Vault | Tự lo `.env`, `.gitignore` |
-| Chạy script `pm` của Postman | Chạy nguyên | Có | Chuyển đổi khi import |
-| Định dạng file | YAML, mỗi Request một file | JSON khi export | `.bru` hoặc YAML |
-| Nền tảng app | Tauri + Rust | Electron | Electron |
-| Giá | Miễn phí, mã nguồn mở | Gói free có giới hạn, trả phí theo người | Mã nguồn mở, có bản trả phí |
+| Tiêu chí | **Zenar** | **Postman** | **Bruno** | **Insomnia** |
+| --- | --- | --- | --- | --- |
+| Nơi lưu Collection | Repo Git của team | Cloud của Postman | File trên máy | Trên máy, Git hoặc cloud của Kong, tuỳ project |
+| Cần tài khoản | Không | Có | Không | Cần cho project, Scratch Pad thì không |
+| Cách chia sẻ | Bấm Save, Git chạy ngầm | Workspace trên cloud | Tự commit, push, pull | Cloud Sync, hoặc commit, push, pull trong app |
+| Khi hai người sửa cùng Request | Tự gộp theo Field, chỉ hỏi khi trùng Field | Đồng bộ qua cloud, fork và merge Collection | Conflict marker của Git trong file text | Conflict Git: chọn bản theo từng file |
+| Người không rành Git dùng được | Có | Có | Khó | Chỉ khi dùng Cloud Sync |
+| Dữ liệu không qua bên thứ ba | Có | Không | Có | Có, nếu không dùng Cloud Sync |
+| GitLab tự host trong mạng nội bộ | Có | Không | Có, tự quản lý Git | Có, qua Git Sync |
+| Secret không vào repo | Mặc định | Current value, Vault | Tự lo `.env`, `.gitignore` | Environment private, Vault |
+| Chạy script `pm` của Postman | Chạy nguyên | Có | Chuyển đổi khi import | Chuyển đổi khi import |
+| Định dạng file | YAML, mỗi Request một file | JSON khi export | `.bru` hoặc YAML | YAML |
+| Nền tảng app | Tauri + Rust | Electron | Electron | Electron |
+| Giá | Miễn phí, mã nguồn mở | Gói free có giới hạn, trả phí theo người | Mã nguồn mở, có bản trả phí | Lõi mã nguồn mở, có gói free, trả phí theo người |
 
-So sánh dựa trên tài liệu công khai của Postman và Bruno tại thời điểm viết (11/2026). Tính năng và giá của họ có thể đã thay đổi. Cần sửa gì, xin mở issue.
+So sánh dựa trên tài liệu công khai của Postman, Bruno và Insomnia tại thời điểm viết (11/2026). Tính năng và giá của họ có thể đã thay đổi. Cần sửa gì, xin mở issue.
 
 ## Nguyên tắc: những gì Zenar không làm
 

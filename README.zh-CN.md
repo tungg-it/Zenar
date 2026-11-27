@@ -61,26 +61,26 @@
 3. **从 Postman 导入或新建 Request。** 每个 Request 都会成为一个易读的 YAML 文件（例如 `orders/create-order.yaml`），可以直接在 Git 托管网站上、在 Merge Request 中审阅。
 4. **点击保存。** 队友几秒内就能收到改动。没人需要知道 commit 或 push 是什么。
 
-## Zenar、Postman 与 Bruno 对比
+## Zenar、Postman、Bruno 与 Insomnia 对比
 
-三者都能发送请求。区别在于数据存放在哪里，以及团队如何一起协作。
+四者都能发送请求。区别在于数据存放在哪里，以及团队如何一起协作。
 
-| 对比项 | **Zenar** | **Postman** | **Bruno** |
-| --- | --- | --- | --- |
-| Collection 存放位置 | 团队的 Git 仓库 | Postman 云端 | 你电脑上的文件 |
-| 需要账号 | 否 | 是 | 否 |
-| 共享方式 | 点击保存，Git 在后台运行 | 云端工作区 | 自己 commit、push、pull |
-| 两人编辑同一个 Request | 按字段合并，仅在同一字段时询问 | 云端同步，fork 并合并 Collection | 文本文件中的 Git 冲突标记 |
-| 不懂 Git 也能用 | 是 | 是 | 困难 |
-| 数据不经过第三方 | 是 | 否 | 是 |
-| 内网自建 GitLab | 是 | 否 | 是，自己管理 Git |
-| Secret 不进入仓库 | 默认如此 | Current value、Vault | 自己管理 `.env`、`.gitignore` |
-| 运行 Postman `pm` 脚本 | 无需修改 | 是 | 导入时转换 |
-| 文件格式 | YAML，每个 Request 一个文件 | 导出为 JSON | `.bru` 或 YAML |
-| 应用运行时 | Tauri + Rust | Electron | Electron |
-| 价格 | 免费、开源 | 有限的免费套餐，按用户付费 | 开源，提供付费版 |
+| 对比项 | **Zenar** | **Postman** | **Bruno** | **Insomnia** |
+| --- | --- | --- | --- | --- |
+| Collection 存放位置 | 团队的 Git 仓库 | Postman 云端 | 你电脑上的文件 | 你的电脑、Git 或 Kong 的云端，按项目选择 |
+| 需要账号 | 否 | 是 | 否 | 项目需要，Scratch Pad 不需要 |
+| 共享方式 | 点击保存，Git 在后台运行 | 云端工作区 | 自己 commit、push、pull | Cloud Sync，或在应用内 commit、push、pull |
+| 两人编辑同一个 Request | 按字段合并，仅在同一字段时询问 | 云端同步，fork 并合并 Collection | 文本文件中的 Git 冲突标记 | Git 冲突：按文件选择版本 |
+| 不懂 Git 也能用 | 是 | 是 | 困难 | 仅限使用 Cloud Sync 时 |
+| 数据不经过第三方 | 是 | 否 | 是 | 是，除非使用 Cloud Sync |
+| 内网自建 GitLab | 是 | 否 | 是，自己管理 Git | 是，通过 Git Sync |
+| Secret 不进入仓库 | 默认如此 | Current value、Vault | 自己管理 `.env`、`.gitignore` | 私有 Environment、Vault |
+| 运行 Postman `pm` 脚本 | 无需修改 | 是 | 导入时转换 | 导入时转换 |
+| 文件格式 | YAML，每个 Request 一个文件 | 导出为 JSON | `.bru` 或 YAML | YAML |
+| 应用运行时 | Tauri + Rust | Electron | Electron | Electron |
+| 价格 | 免费、开源 | 有限的免费套餐，按用户付费 | 开源，提供付费版 | 开源核心，有免费套餐，按用户付费 |
 
-以上对比基于撰写时（2026 年 11 月）Postman 和 Bruno 的公开文档。其功能和价格此后可能已有变化。欢迎指正：请提交 issue。
+以上对比基于撰写时（2026 年 11 月）Postman、Bruno 和 Insomnia 的公开文档。其功能和价格此后可能已有变化。欢迎指正：请提交 issue。
 
 ## 原则：Zenar 不做的事
 

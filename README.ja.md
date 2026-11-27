@@ -61,26 +61,26 @@ HTTPS で使えるあらゆる Git ホストに対応：GitHub、GitLab.com、�
 3. **Postman からインポート、または Request を作成。** 各 Request は読みやすい YAML ファイル（例：`orders/create-order.yaml`）になり、Git ホストの Web サイト上の Merge Request でそのままレビューできます。
 4. **Save を押す。** チームメイトには数秒で変更が届きます。commit や push の意味を知る必要はありません。
 
-## Zenar と Postman と Bruno の比較
+## Zenar と Postman、Bruno、Insomnia の比較
 
-3 つともリクエストを送信できます。違いは、データがどこにあり、チームがどう共同作業するかです。
+4 つともリクエストを送信できます。違いは、データがどこにあり、チームがどう共同作業するかです。
 
-| 比較項目 | **Zenar** | **Postman** | **Bruno** |
-| --- | --- | --- | --- |
-| Collection の保存先 | チームの Git リポジトリ | Postman のクラウド | 手元のマシン上のファイル |
-| アカウント | 不要 | 必要 | 不要 |
-| 共有方法 | Save を押すだけ、Git は裏で動作 | クラウドワークスペース | 自分で commit、push、pull |
-| 2 人が同じ Request を編集 | Field ごとにマージ、同じ Field のときだけ確認 | クラウド同期、Collection を fork してマージ | テキストファイルに Git のコンフリクトマーカー |
-| Git の知識なしで使える | はい | はい | 難しい |
-| データが第三者を経由しない | はい | いいえ | はい |
-| 社内ネットワークのセルフホスト GitLab | はい | いいえ | はい、Git は自分で管理 |
-| Secret をリポジトリに入れない | デフォルトで | Current value、Vault | `.env`、`.gitignore` を自分で管理 |
-| Postman の `pm` スクリプトを実行 | そのまま | はい | インポート時に変換 |
-| ファイル形式 | YAML、Request ごとに 1 ファイル | エクスポート時に JSON | `.bru` または YAML |
-| アプリのランタイム | Tauri + Rust | Electron | Electron |
-| 価格 | 無料、オープンソース | 制限付きの無料プラン、ユーザー単位の有料 | オープンソース、有料版あり |
+| 比較項目 | **Zenar** | **Postman** | **Bruno** | **Insomnia** |
+| --- | --- | --- | --- | --- |
+| Collection の保存先 | チームの Git リポジトリ | Postman のクラウド | 手元のマシン上のファイル | マシン、Git、Kong のクラウドからプロジェクトごとに選択 |
+| アカウント | 不要 | 必要 | 不要 | プロジェクトには必要、Scratch Pad は不要 |
+| 共有方法 | Save を押すだけ、Git は裏で動作 | クラウドワークスペース | 自分で commit、push、pull | Cloud Sync、またはアプリ内で commit、push、pull |
+| 2 人が同じ Request を編集 | Field ごとにマージ、同じ Field のときだけ確認 | クラウド同期、Collection を fork してマージ | テキストファイルに Git のコンフリクトマーカー | Git のコンフリクト：ファイル単位で版を選ぶ |
+| Git の知識なしで使える | はい | はい | 難しい | Cloud Sync を使う場合のみ |
+| データが第三者を経由しない | はい | いいえ | はい | はい、Cloud Sync を使わない場合 |
+| 社内ネットワークのセルフホスト GitLab | はい | いいえ | はい、Git は自分で管理 | はい、Git Sync 経由 |
+| Secret をリポジトリに入れない | デフォルトで | Current value、Vault | `.env`、`.gitignore` を自分で管理 | プライベート Environment、Vault |
+| Postman の `pm` スクリプトを実行 | そのまま | はい | インポート時に変換 | インポート時に変換 |
+| ファイル形式 | YAML、Request ごとに 1 ファイル | エクスポート時に JSON | `.bru` または YAML | YAML |
+| アプリのランタイム | Tauri + Rust | Electron | Electron | Electron |
+| 価格 | 無料、オープンソース | 制限付きの無料プラン、ユーザー単位の有料 | オープンソース、有料版あり | オープンソースのコア、無料プラン、ユーザー単位の有料 |
 
-執筆時点（2026 年 11 月）の Postman と Bruno の公開ドキュメントに基づいています。機能や価格はその後変わっている可能性があります。訂正は issue でお知らせください。
+執筆時点（2026 年 11 月）の Postman、Bruno、Insomnia の公開ドキュメントに基づいています。機能や価格はその後変わっている可能性があります。訂正は issue でお知らせください。
 
 ## 原則：Zenar がしないこと
 

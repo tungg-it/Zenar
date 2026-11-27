@@ -61,26 +61,26 @@ From an empty repo to a shared Collection in 3 minutes:
 3. **Import from Postman or create a Request.** Each Request becomes a readable YAML file (for example `orders/create-order.yaml`) you can review right on your Git host's website, in a Merge Request.
 4. **Press Save.** Teammates get the change within seconds. Nobody needs to know what commit or push means.
 
-## Zenar vs Postman vs Bruno
+## Zenar vs Postman vs Bruno vs Insomnia
 
-All three send requests. They differ in where your data lives and how a team works on it together.
+All four send requests. They differ in where your data lives and how a team works on it together.
 
-| Criteria | **Zenar** | **Postman** | **Bruno** |
-| --- | --- | --- | --- |
-| Where the Collection lives | Your team's Git repo | Postman's cloud | Files on your machine |
-| Account required | No | Yes | No |
-| How you share | Press Save, Git runs in the background | Cloud workspace | Commit, push, pull yourself |
-| Two people edit one Request | Merged per Field, asks only on the same Field | Cloud sync, fork and merge Collections | Git conflict markers in a text file |
-| Usable without Git skills | Yes | Yes | Hard |
-| Data never goes through a third party | Yes | No | Yes |
-| Self-hosted GitLab on an internal network | Yes | No | Yes, you manage Git |
-| Secrets kept out of the repo | By default | Current value, Vault | Manage `.env`, `.gitignore` |
-| Runs Postman `pm` scripts | Unchanged | Yes | Converted on import |
-| File format | YAML, one file per Request | JSON on export | `.bru` or YAML |
-| App runtime | Tauri + Rust | Electron | Electron |
-| Price | Free, open source | Limited free plan, paid per user | Open source, paid edition available |
+| Criteria | **Zenar** | **Postman** | **Bruno** | **Insomnia** |
+| --- | --- | --- | --- | --- |
+| Where the Collection lives | Your team's Git repo | Postman's cloud | Files on your machine | Your machine, Git or Kong's cloud, per project |
+| Account required | No | Yes | No | For projects; Scratch Pad needs none |
+| How you share | Press Save, Git runs in the background | Cloud workspace | Commit, push, pull yourself | Cloud Sync, or commit, push, pull in the app |
+| Two people edit one Request | Merged per Field, asks only on the same Field | Cloud sync, fork and merge Collections | Git conflict markers in a text file | Git conflict: pick a version per file |
+| Usable without Git skills | Yes | Yes | Hard | Only with Cloud Sync |
+| Data never goes through a third party | Yes | No | Yes | Yes, unless you use Cloud Sync |
+| Self-hosted GitLab on an internal network | Yes | No | Yes, you manage Git | Yes, through Git Sync |
+| Secrets kept out of the repo | By default | Current value, Vault | Manage `.env`, `.gitignore` | Private environments, Vault |
+| Runs Postman `pm` scripts | Unchanged | Yes | Converted on import | Converted on import |
+| File format | YAML, one file per Request | JSON on export | `.bru` or YAML | YAML |
+| App runtime | Tauri + Rust | Electron | Electron | Electron |
+| Price | Free, open source | Limited free plan, paid per user | Open source, paid edition available | Open-source core, free plan, paid per user |
 
-Based on Postman's and Bruno's public documentation at the time of writing (Nov 2026). Their features and pricing may have changed since. Corrections welcome: open an issue.
+Based on Postman's, Bruno's and Insomnia's public documentation at the time of writing (Nov 2026). Their features and pricing may have changed since. Corrections welcome: open an issue.
 
 ## Principles: what Zenar doesn't do
 
